@@ -1,178 +1,527 @@
+/* =====================================================
+   iLink V1 — COMPLETE SCRIPT
+   Products + Deals + Seasonal + Search + Football Tickets
+===================================================== */
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
 const products = [
-  { icon: "🎧", name: "Wireless Smart Headphones", price: "KSh 3,499", rating: "★★★★★", note: "Tracked shopping" },
-  { icon: "⌚", name: "Smart Watch Pro", price: "KSh 4,999", rating: "★★★★☆", note: "Tracked shopping" },
-  { icon: "👟", name: "Urban Runner Sneakers", price: "KSh 5,850", rating: "★★★★★", note: "Tracked shopping" },
-  { icon: "📱", name: "Portable Phone Gadget Kit", price: "KSh 2,150", rating: "★★★★☆", note: "Tracked shopping" }
+  {
+    icon: "🎧",
+    name: "Wireless Smart Headphones",
+    price: "KSh 2,999"
+  },
+  {
+    icon: "⌚",
+    name: "Smart Watch Pro",
+    price: "KSh 3,499"
+  },
+  {
+    icon: "👟",
+    name: "Urban Runner Sneakers",
+    price: "KSh 2,499"
+  },
+  {
+    icon: "📱",
+    name: "Portable Phone Gadget",
+    price: "KSh 1,999"
+  }
 ];
+
+
+/* =====================================================
+   DEALS
+===================================================== */
 
 const deals = [
-  { icon: "⚡", title: "Tech Flash Picks", text: "Trending electronics and smart gadgets.", price: "From KSh 999" },
-  { icon: "🎁", title: "Gift Finder", text: "Ideas for birthdays, holidays and celebrations.", price: "Explore gifts" },
-  { icon: "🌍", title: "Global Finds", text: "Discover products from international marketplaces.", price: "Explore stores" }
+  {
+    icon: "⚡",
+    title: "Tech Flash Picks",
+    text: "Discover popular technology deals."
+  },
+  {
+    icon: "🎁",
+    title: "Gift Finder",
+    text: "Find gifts for every occasion."
+  },
+  {
+    icon: "🌍",
+    title: "Global Finds",
+    text: "Explore products from international marketplaces."
+  }
 ];
 
+
+/* =====================================================
+   SEASONAL COLLECTIONS
+===================================================== */
+
 const seasonal = {
+
   christmas: {
     eyebrow: "DECEMBER • CHRISTMAS COLLECTION",
     title: "Christmas Gifts from China",
-    text: "Discover festive gift ideas and products from the Chinese marketplace.",
+    text: "Discover festive gift ideas and products from international marketplaces.",
     button: "Explore Christmas gifts",
     icon: "🎁"
   },
+
   valentines: {
     eyebrow: "FEBRUARY • VALENTINE'S COLLECTION",
     title: "Valentine's Gifts from China",
-    text: "Discover thoughtful gifts, fashion and special finds for Valentine's season.",
+    text: "Discover thoughtful gifts, fashion and special products.",
     button: "Explore Valentine's gifts",
     icon: "❤️"
   },
-  blackFriday: {
-    eyebrow: "NOVEMBER • BLACK FRIDAY",
-    title: "Black Friday Global Deals",
-    text: "Explore seasonal deals and trending products from global marketplaces.",
-    button: "Explore Black Friday",
-    icon: "🛍️"
-  },
+
   normal: {
-    eyebrow: "ILINK • GLOBAL DISCOVERY",
-    title: "Trending Products Around the World",
-    text: "Discover new products, gifts and deals from iLink's global marketplace.",
+    eyebrow: "iLINK • GLOBAL MARKETPLACE",
+    title: "Discover Products from Around the World",
+    text: "Shop and discover products through iLink's growing marketplace.",
     button: "Explore marketplace",
     icon: "🌍"
   }
+
 };
 
-function getSeason(date = new Date()) {
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
 
-  if (month === 12) return "christmas";
-  if (month === 2 && day <= 14) return "valentines";
-  if (month === 11) return "blackFriday";
-  return "normal";
-}
+/* =====================================================
+   MOBILE MENU
+===================================================== */
 
-function applySeason() {
-  const key = getSeason();
-  const data = seasonal[key];
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
 
-  document.getElementById("seasonEyebrow").textContent = data.eyebrow;
-  document.getElementById("heroTitle").innerHTML =
-    key === "normal"
-      ? "Shop the world.<br><span>Earn as you shop.</span>"
-      : `${data.title}.<br><span>Discover it on iLink.</span>`;
-  document.getElementById("heroText").textContent = data.text;
+if (menuBtn && mobileMenu) {
 
-  document.getElementById("promoEyebrow").textContent = data.eyebrow;
-  document.getElementById("promoTitle").textContent = data.title;
-  document.getElementById("promoText").textContent = data.text;
-  document.getElementById("promoButton").textContent = data.button + " →";
-  document.querySelector(".gift-box").textContent = data.icon;
-}
+  menuBtn.addEventListener("click", () => {
 
-function renderProducts(items = products) {
-  const grid = document.getElementById("productGrid");
-  grid.innerHTML = items.map(p => `
-    <article class="product-card">
-      <div class="product-image">
-        <span class="product-badge">iLink pick</span>
-        ${p.icon}
-      </div>
-      <div class="product-info">
-        <h3>${p.name}</h3>
-        <div class="rating">${p.rating}</div>
-        <div class="price-row">
-          <span class="price">${p.price}</span>
-          <span class="commission-note">${p.note}</span>
-        </div>
-      </div>
-    </article>
-  `).join("");
-}
+    mobileMenu.classList.toggle("active");
 
-function renderDeals() {
-  document.getElementById("dealStrip").innerHTML = deals.map(d => `
-    <article class="deal-card">
-      <div class="deal-icon">${d.icon}</div>
-      <h3>${d.title}</h3>
-      <p>${d.text}</p>
-      <div class="deal-price">${d.price} →</div>
-    </article>
-  `).join("");
-}
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  clearTimeout(window.toastTimer);
-  window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2400);
-}
-
-function runSearch(value) {
-  const query = value.trim();
-  if (!query) {
-    showToast("Type something to search on iLink.");
-    return;
-  }
-  showToast(`iLink search ready for: ${query}`);
-  document.getElementById("personalized").scrollIntoView({ behavior: "smooth" });
-}
-
-document.getElementById("searchButton").addEventListener("click", () => {
-  runSearch(document.getElementById("heroSearch").value);
-});
-
-document.getElementById("heroSearch").addEventListener("keydown", e => {
-  if (e.key === "Enter") runSearch(e.target.value);
-});
-
-document.querySelectorAll(".pill, .category-card").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const query = btn.dataset.query || "";
-    document.getElementById("heroSearch").value = query;
-    runSearch(query);
   });
-});
 
-document.getElementById("menuToggle").addEventListener("click", () => {
-  document.getElementById("mobileNav").classList.toggle("open");
-});
+}
 
-document.querySelectorAll(".mobile-nav a").forEach(link => {
-  link.addEventListener("click", () => document.getElementById("mobileNav").classList.remove("open"));
-});
 
-document.querySelectorAll("[data-action]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    if (btn.dataset.action === "refresh") {
-      renderProducts([...products].sort(() => Math.random() - .5));
-      showToast("Your iLink picks were refreshed.");
-    } else {
-      showToast("More categories are coming to iLink.");
+/* =====================================================
+   CLOSE MOBILE MENU
+===================================================== */
+
+document.querySelectorAll(".mobile-menu a").forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    if (mobileMenu) {
+      mobileMenu.classList.remove("active");
     }
+
   });
+
 });
 
-document.getElementById("promoButton").addEventListener("click", () => {
-  showToast("Seasonal collection is ready for product links.");
-});
 
-document.getElementById("voucherButton").addEventListener("click", () => {
-  showToast("iLink digital vouchers are coming next.");
-});
+/* =====================================================
+   SMOOTH SCROLL
+===================================================== */
 
-document.querySelectorAll(".market-card").forEach(card => {
-  card.addEventListener("click", () => showToast(`${card.querySelector("b").textContent} marketplace selected.`));
-});
+function scrollToSection(sectionId) {
 
-document.getElementById("searchToggle").addEventListener("click", () => {
-  document.getElementById("heroSearch").focus();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+  const section = document.getElementById(sectionId);
 
-document.getElementById("year").textContent = new Date().getFullYear();
+  if (section) {
 
-applySeason();
-renderProducts();
-renderDeals();
+    section.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+function showNotification(message) {
+
+  const notification =
+    document.getElementById("notification");
+
+  if (!notification) return;
+
+  notification.textContent = message;
+
+  notification.classList.add("show");
+
+  setTimeout(() => {
+
+    notification.classList.remove("show");
+
+  }, 3000);
+
+}
+
+
+/* =====================================================
+   COMING SOON
+===================================================== */
+
+function showComingSoon() {
+
+  showNotification(
+    "🚀 This iLink feature is coming soon."
+  );
+
+}
+
+
+/* =====================================================
+   FOOTBALL TICKET AFFILIATE LINKS
+===================================================== */
+
+/*
+   IMPORTANT:
+
+   These are PLACEHOLDER links.
+
+   Once you join a football ticket
+   affiliate program, replace these
+   URLs with your real tracking links.
+
+   Example:
+
+   football:
+   "YOUR_REAL_AFFILIATE_LINK"
+
+*/
+
+const ticketLinks = {
+
+  football:
+    "https://YOUR-AFFILIATE-LINK-HERE.com",
+
+  "premier-league":
+    "https://YOUR-AFFILIATE-LINK-HERE.com",
+
+  "champions-league":
+    "https://YOUR-AFFILIATE-LINK-HERE.com",
+
+  "la-liga":
+    "https://YOUR-AFFILIATE-LINK-HERE.com",
+
+  "serie-a":
+    "https://YOUR-AFFILIATE-LINK-HERE.com",
+
+  "bundesliga":
+    "https://YOUR-AFFILIATE-LINK-HERE.com",
+
+  international:
+    "https://YOUR-AFFILIATE-LINK-HERE.com"
+
+};
+
+
+/* =====================================================
+   OPEN FOOTBALL TICKET PARTNER
+===================================================== */
+
+function openTicketPartner(type) {
+
+  const link = ticketLinks[type];
+
+  /*
+     If we have not added the real
+     affiliate link yet, show message.
+  */
+
+  if (
+    !link ||
+    link.includes("YOUR-AFFILIATE-LINK-HERE")
+  ) {
+
+    showNotification(
+      "🎟️ Football ticket partner coming soon."
+    );
+
+    return;
+
+  }
+
+
+  /*
+     Open affiliate tracking link.
+  */
+
+  window.open(
+    link,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const searchBtn =
+  document.getElementById("searchBtn");
+
+
+function performSearch() {
+
+  if (!searchInput) return;
+
+  const search =
+    searchInput.value.trim().toLowerCase();
+
+
+  /* -------------------------------------
+     EMPTY SEARCH
+  ------------------------------------- */
+
+  if (!search) {
+
+    showNotification(
+      "🔍 Type something to search."
+    );
+
+    return;
+
+  }
+
+
+  /* -------------------------------------
+     FOOTBALL TICKETS
+  ------------------------------------- */
+
+  if (
+
+    search.includes("football") ||
+    search.includes("ticket") ||
+    search.includes("tickets") ||
+    search.includes("match") ||
+    search.includes("premier league") ||
+    search.includes("champions league") ||
+    search.includes("la liga") ||
+    search.includes("serie a") ||
+    search.includes("bundesliga") ||
+    search.includes("arsenal") ||
+    search.includes("chelsea") ||
+    search.includes("liverpool") ||
+    search.includes("manchester") ||
+    search.includes("barcelona") ||
+    search.includes("real madrid")
+
+  ) {
+
+    scrollToSection("tickets");
+
+    showNotification(
+      "⚽ Football Tickets found."
+    );
+
+    return;
+
+  }
+
+
+  /* -------------------------------------
+     GIFTS
+  ------------------------------------- */
+
+  if (
+
+    search.includes("gift") ||
+    search.includes("gifts") ||
+    search.includes("christmas") ||
+    search.includes("valentine")
+
+  ) {
+
+    scrollToSection("gifts");
+
+    showNotification(
+      "🎁 Gift section found."
+    );
+
+    return;
+
+  }
+
+
+  /* -------------------------------------
+     VOUCHERS
+  ------------------------------------- */
+
+  if (
+
+    search.includes("voucher") ||
+    search.includes("vouchers") ||
+    search.includes("coupon") ||
+    search.includes("coupons")
+
+  ) {
+
+    scrollToSection("vouchers");
+
+    showNotification(
+      "🎟️ Voucher section found."
+    );
+
+    return;
+
+  }
+
+
+  /* -------------------------------------
+     CHINA MARKETPLACE
+  ------------------------------------- */
+
+  if (
+
+    search.includes("china") ||
+    search.includes("chinese") ||
+    search.includes("alibaba") ||
+    search.includes("electronics") ||
+    search.includes("phone") ||
+    search.includes("phones") ||
+    search.includes("fashion") ||
+    search.includes("shoes")
+
+  ) {
+
+    scrollToSection("china");
+
+    showNotification(
+      "🇨🇳 China Marketplace found."
+    );
+
+    return;
+
+  }
+
+
+  /* -------------------------------------
+     NO RESULT
+  ------------------------------------- */
+
+  showNotification(
+    "🔎 iLink is still adding more marketplaces."
+  );
+
+}
+
+
+/* =====================================================
+   SEARCH BUTTON
+===================================================== */
+
+if (searchBtn) {
+
+  searchBtn.addEventListener(
+    "click",
+    performSearch
+  );
+
+}
+
+
+/* =====================================================
+   ENTER KEY SEARCH
+===================================================== */
+
+if (searchInput) {
+
+  searchInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Enter") {
+
+        performSearch();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   iLINK LOADED
+===================================================== */
+
+console.log(
+  "🚀 iLink V1 loaded successfully."
+);
+
+
+/* =====================================================
+   FUTURE FOOTBALL API SYSTEM
+===================================================== */
+
+/*
+
+   FUTURE iLINK FOOTBALL SYSTEM
+
+   Football API
+        ↓
+   iLink backend
+        ↓
+   Football Tickets
+        ↓
+   Customer selects competition
+        ↓
+   Customer selects match
+        ↓
+   Customer selects ticket
+        ↓
+   Affiliate tracking link
+        ↓
+   Ticket partner
+        ↓
+   Customer completes purchase
+        ↓
+   iLink receives commission
+
+*/
+
+
+/* =====================================================
+   FUTURE MARKETPLACE SYSTEM
+===================================================== */
+
+/*
+
+   FUTURE iLINK GLOBAL MARKETPLACE
+
+   Customer
+       ↓
+   iLink
+       ↓
+   Marketplace / Merchant
+       ↓
+   Affiliate tracking
+       ↓
+   Customer purchase
+       ↓
+   Commission
+       ↓
+   iLink
+
+*/
+
+
+/* =====================================================
+   END OF iLINK SCRIPT
+===================================================== */
