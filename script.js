@@ -524,4 +524,148 @@ console.log(
 
 /* =====================================================
    END OF iLINK SCRIPT
-===================================================== */
+/* =====================================================
+   iLINK FINDER SYSTEM
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const finderInput = document.getElementById("finderInput");
+    const finderButton = document.getElementById("finderButton");
+    const finderResults = document.getElementById("finderResults");
+    const finderChips = document.querySelectorAll(".finder-chip");
+
+    if (!finderInput || !finderButton || !finderResults) {
+        return;
+    }
+
+    const finderData = [
+        {
+            keywords: ["fashion", "clothes", "shoes", "sneakers", "dress", "shirt"],
+            title: "👕 Fashion Finder",
+            description: "Find fashion products from major online marketplaces.",
+            category: "Fashion"
+        },
+        {
+            keywords: ["phone", "mobile", "smartphone", "iphone", "android"],
+            title: "📱 Phone & Electronics",
+            description: "Find phones, electronics and accessories.",
+            category: "Electronics"
+        },
+        {
+            keywords: ["gift", "christmas", "present", "birthday"],
+            title: "🎁 Gift Finder",
+            description: "Discover gifts from international marketplaces.",
+            category: "Gifts"
+        },
+        {
+            keywords: ["china", "chinese", "alibaba", "1688"],
+            title: "🇨🇳 China Marketplace",
+            description: "Explore products from Chinese marketplaces.",
+            category: "China"
+        },
+        {
+            keywords: ["football", "soccer", "ticket", "tickets", "match"],
+            title: "⚽ Football Tickets",
+            description: "Find football ticket opportunities through iLink.",
+            category: "Football"
+        },
+        {
+            keywords: ["deal", "deals", "cheap", "discount", "offer"],
+            title: "🔥 Deals Finder",
+            description: "Find products and special offers through iLink.",
+            category: "Deals"
+        }
+    ];
+
+    function searchFinder(searchTerm) {
+
+        const term = (searchTerm || finderInput.value).trim().toLowerCase();
+
+        if (!term) {
+            finderResults.innerHTML = `
+                <div class="finder-empty">
+                    <div class="finder-icon">🔎</div>
+                    <h3>What are you looking for?</h3>
+                    <p>Try searching for fashion, phones, gifts, China products, football tickets or deals.</p>
+                </div>
+            `;
+            return;
+        }
+
+        const words = term.split(/\s+/);
+
+        const results = finderData.filter(item => {
+            return words.some(word =>
+                item.keywords.some(keyword =>
+                    keyword.includes(word) || word.includes(keyword)
+                )
+            );
+        });
+
+        if (results.length === 0) {
+            finderResults.innerHTML = `
+                <div class="finder-empty">
+                    <div class="finder-icon">🔍</div>
+                    <h3>No exact match yet</h3>
+                    <p>
+                        iLink is still expanding. Try searching for
+                        fashion, phones, gifts, China products,
+                        football tickets or deals.
+                    </p>
+                </div>
+            `;
+            return;
+        }
+
+        finderResults.innerHTML = results.map(item => `
+            <div class="finder-result-card">
+                <div>
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                </div>
+
+                <button
+                    type="button"
+                    onclick="finderCategory('${item.category}')">
+                    Explore
+                </button>
+            </div>
+        `).join("");
+    }
+
+    window.searchFinder = searchFinder;
+
+    window.finderCategory = function(category) {
+
+        const marketplaceSection =
+            document.getElementById("marketplaces");
+
+        if (marketplaceSection) {
+            marketplaceSection.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+        console.log("iLink Finder category:", category);
+    };
+
+    finderButton.addEventListener("click", function () {
+        searchFinder();
+    });
+
+    finderInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            searchFinder();
+        }
+    });
+
+    finderChips.forEach(chip => {
+        chip.addEventListener("click", function () {
+            const searchValue = this.dataset.search || this.textContent;
+            finderInput.value = searchValue;
+            searchFinder(searchValue);
+        });
+    });
+
+});===================================================== */
