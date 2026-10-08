@@ -503,4 +503,28 @@ footer {
         box-sizing: border-box;
     }
    }
+}/* ===== iLINK FINAL DARK BACKGROUND FIX ===== */
+
+html,
+body {
+    background: #050510 !important;
+    color: #ffffff !important;
 }
+
+header,
+nav,
+main,
+section,
+footer,
+.container,
+.hero,
+.card,
+.marketplace,
+.finder-section {
+    background-color: transparent !important;
+}
+
+body::before,
+body::after {
+    background: transparent !important;
+       }
