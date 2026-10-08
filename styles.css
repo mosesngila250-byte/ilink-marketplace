@@ -1043,3 +1043,105 @@ section {
   background: #00ffff;
   border-radius: 20px;
      }
+/* =========================================================
+   iLINK FINDER V2
+   ========================================================= */
+
+.ilink-finder-v2 {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.ilink-finder-v2 h2 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  margin-bottom: 10px;
+}
+
+.ilink-finder-v2 .finder-subtitle {
+  margin-bottom: 25px;
+  color: #aebbd0;
+}
+
+.finder-search-box {
+  display: flex;
+  gap: 10px;
+  max-width: 800px;
+  margin: 0 auto 25px;
+}
+
+.finder-search-box input {
+  flex: 1;
+  min-height: 52px;
+  padding: 0 18px;
+}
+
+.finder-search-box button {
+  padding: 0 24px;
+  min-height: 52px;
+  cursor: pointer;
+}
+
+.finder-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.finder-category {
+  padding: 10px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  border: 1px solid rgba(0,255,255,.25);
+  background: rgba(0,255,255,.05);
+  color: #fff;
+  transition: .3s ease;
+}
+
+.finder-category:hover,
+.finder-category.active {
+  border-color: #00ffff;
+  background: rgba(0,255,255,.12);
+  box-shadow: 0 0 15px rgba(0,255,255,.2);
+}
+
+.finder-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.finder-result {
+  padding: 20px;
+  text-align: left;
+}
+
+.finder-result h3 {
+  margin-top: 0;
+}
+
+.finder-result .marketplace-name {
+  color: #00ffff;
+  font-size: .85rem;
+}
+
+.finder-result .finder-action {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+@media (max-width: 650px) {
+  .finder-search-box {
+    flex-direction: column;
+  }
+
+  .finder-search-box button {
+    width: 100%;
+  }
+}
