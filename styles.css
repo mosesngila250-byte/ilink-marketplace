@@ -408,7 +408,93 @@
     .finder-result-card {
         flex-direction: column;
         align-items: flex-start;
-    }
+    }/* ===== iLINK FUTURISTIC DARK THEME ===== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #050510 !important;
+    color: #ffffff !important;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+
+header,
+nav,
+main,
+section,
+footer {
+    background-color: transparent;
+}
+
+section {
+    background: #080817;
+    color: #ffffff;
+}
+
+.hero {
+    background:
+        radial-gradient(circle at 50% 20%, rgba(0, 255, 255, 0.18), transparent 35%),
+        linear-gradient(135deg, #050510, #0b0820 50%, #050510);
+    color: white;
+}
+
+.card,
+.product-card,
+.marketplace-card,
+.finder-card,
+.ticket-card {
+    background: rgba(15, 15, 35, 0.9);
+    color: #ffffff;
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+label {
+    color: inherit;
+}
+
+button {
+    background: linear-gradient(90deg, #00eaff, #7c3cff);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.5);
+}
+
+a {
+    color: #00eaff;
+}
+
+input,
+select {
+    background: #111126;
+    color: white;
+    border: 1px solid #30305c;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+footer {
+    background: #030308 !important;
+    color: white !important;
+}
 
     .finder-result-card a,
     .finder-result-card button {
