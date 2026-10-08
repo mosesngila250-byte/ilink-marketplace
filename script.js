@@ -669,3 +669,104 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });===================================================== */
+/* =========================================================
+   iLINK FINDER V2 — SEARCH + CATEGORY FILTER
+   ========================================================= */
+
+const ilinkFinderProducts = [
+  {
+    name: "Smartphone Deals",
+    category: "Electronics",
+    marketplace: "Global Marketplace",
+    description: "Find smartphones and mobile accessories.",
+    link: "#marketplace"
+  },
+  {
+    name: "Fashion Deals",
+    category: "Fashion",
+    marketplace: "Fashion Marketplace",
+    description: "Discover clothing, shoes and accessories.",
+    link: "#marketplace"
+  },
+  {
+    name: "Christmas Gifts",
+    category: "Gifts",
+    marketplace: "China Marketplace",
+    description: "Find unique gifts and products from China.",
+    link: "#marketplace"
+  },
+  {
+    name: "Football Tickets",
+    category: "Tickets",
+    marketplace: "iLink Tickets",
+    description: "Explore football ticket opportunities.",
+    link: "#tickets"
+  }
+];
+
+function searchILinkFinder() {
+  const input = document.getElementById("ilinkFinderSearch");
+  const results = document.getElementById("ilinkFinderResults");
+
+  if (!input || !results) return;
+
+  const query = input.value.toLowerCase().trim();
+
+  const matches = ilinkFinderProducts.filter(product =>
+    product.name.toLowerCase().includes(query) ||
+    product.category.toLowerCase().includes(query) ||
+    product.description.toLowerCase().includes(query) ||
+    product.marketplace.toLowerCase().includes(query)
+  );
+
+  displayILinkFinderResults(matches);
+}
+
+function filterILinkFinder(category) {
+  const results = document.getElementById("ilinkFinderResults");
+
+  if (!results) return;
+
+  if (category === "All") {
+    displayILinkFinderResults(ilinkFinderProducts);
+    return;
+  }
+
+  const matches = ilinkFinderProducts.filter(product =>
+    product.category === category
+  );
+
+  displayILinkFinderResults(matches);
+}
+
+function displayILinkFinderResults(products) {
+  const results = document.getElementById("ilinkFinderResults");
+
+  if (!results) return;
+
+  if (products.length === 0) {
+    results.innerHTML = `
+      <div class="finder-result card">
+        <h3>No results found</h3>
+        <p>Try another product or category.</p>
+      </div>
+    `;
+    return;
+  }
+
+  results.innerHTML = products.map(product => `
+    <div class="finder-result card">
+      <span class="marketplace-name">
+        ${product.marketplace}
+      </span>
+
+      <h3>${product.name}</h3>
+
+      <p>${product.description}</p>
+
+      <a href="${product.link}" class="finder-action btn">
+        Explore →
+      </a>
+    </div>
+  `).join("");
+}
