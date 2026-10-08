@@ -868,3 +868,178 @@ section::after {
   background: rgba(0, 255, 255, 0.25);
   color: #ffffff;
 }
+/* =========================================================
+   iLINK V2 — PREMIUM DARK FUTURISTIC UPGRADE
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(0, 255, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 85% 20%, rgba(120, 0, 255, 0.14), transparent 30%),
+    linear-gradient(135deg, #020308, #070b16, #020308);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  color: #fff;
+  text-shadow: 0 0 18px rgba(0, 255, 255, 0.2);
+}
+
+p {
+  color: #b8c2d6;
+}
+
+/* Premium cards */
+.card,
+.product-card,
+.marketplace-card,
+.finder-card,
+.ticket-card,
+.deal-card {
+  background: rgba(8, 14, 28, 0.78);
+  border: 1px solid rgba(0, 255, 255, 0.18);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+  transition: 0.3s ease;
+}
+
+.card:hover,
+.product-card:hover,
+.marketplace-card:hover,
+.finder-card:hover,
+.ticket-card:hover,
+.deal-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 255, 255, 0.65);
+  box-shadow:
+    0 0 25px rgba(0, 255, 255, 0.15),
+    0 15px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Buttons */
+button,
+.btn,
+.cta,
+.cta-button {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.16),
+    rgba(120, 0, 255, 0.2)
+  );
+  color: #fff;
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  border-radius: 12px;
+  transition: 0.3s ease;
+}
+
+button:hover,
+.btn:hover,
+.cta:hover,
+.cta-button:hover {
+  transform: translateY(-3px);
+  border-color: #00ffff;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.35);
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  background: rgba(3, 7, 18, 0.9) !important;
+  color: #fff !important;
+  border: 1px solid rgba(0, 255, 255, 0.25) !important;
+  border-radius: 12px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #00ffff !important;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+/* Links */
+a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+/* Sections */
+section {
+  position: relative;
+}
+
+/* Finder */
+#finder {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 255, 255, 0.06),
+      transparent 60%
+    );
+}
+
+/* Marketplace */
+#marketplace {
+  background:
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(120, 0, 255, 0.07),
+      transparent 55%
+    );
+}
+
+/* Football tickets */
+#tickets {
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(0, 255, 255, 0.06),
+      transparent 55%
+    );
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  .card,
+  .product-card,
+  .marketplace-card,
+  .finder-card,
+  .ticket-card,
+  .deal-card {
+    border-radius: 15px;
+  }
+
+  button,
+  .btn,
+  .cta,
+  .cta-button {
+    min-height: 44px;
+  }
+}
+
+/* Futuristic scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020308;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ffff;
+  border-radius: 20px;
+     }
