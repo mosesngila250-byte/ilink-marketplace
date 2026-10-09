@@ -1457,3 +1457,132 @@ section {
     transition: none !important;
   }
 }
+/* ===== iLink V2: FUTURISTIC NEON DESIGN ===== */
+
+:root {
+  --ilink-bg: #070b18;
+  --ilink-card: #10172b;
+  --ilink-blue: #00e5ff;
+  --ilink-purple: #9b5cff;
+  --ilink-text: #f4f7ff;
+  --ilink-muted: #aab6d3;
+}
+
+/* Main website background */
+html {
+  background: var(--ilink-bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ilink-bg) !important;
+  color: var(--ilink-text);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--ilink-text);
+}
+
+h1 {
+  text-shadow: 0 0 18px rgba(0, 229, 255, 0.22);
+}
+
+/* Links */
+a {
+  transition: color 0.25s ease;
+}
+
+a:hover {
+  color: var(--ilink-blue);
+}
+
+/* Marketplace cards and product cards */
+.product-card,
+.marketplace-card,
+.finder-card,
+.ticket-card,
+.category-card {
+  background: linear-gradient(
+    145deg,
+    #131d35,
+    #0b1020
+  );
+  border: 1px solid rgba(0, 229, 255, 0.22);
+  border-radius: 16px;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.product-card:hover,
+.marketplace-card:hover,
+.finder-card:hover,
+.ticket-card:hover,
+.category-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ilink-blue);
+  box-shadow: 0 0 22px rgba(0, 229, 255, 0.12);
+}
+
+/* Buttons */
+button,
+.btn,
+.button,
+.cta-button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+button:hover,
+.btn:hover,
+.button:hover,
+.cta-button:hover {
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
+}
+
+/* Section spacing */
+section {
+  scroll-margin-top: 90px;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+}
+
+/* Mobile improvements */
+@media (max-width: 768px) {
+  section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  h1 {
+    line-height: 1.2;
+  }
+
+  .product-card,
+  .marketplace-card,
+  .finder-card,
+  .ticket-card,
+  .category-card {
+    border-radius: 12px;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
