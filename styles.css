@@ -1778,3 +1778,72 @@ img {
     grid-template-columns: 1fr;
   }
    }
+/* =========================================
+   iLINK V2 — AUTOMATIC SEASONAL PROMOTIONS
+   ========================================= */
+
+const ilinkSeasons = [
+  {
+    name: "Christmas Gifts from China",
+    subtitle: "Discover unique gifts for the festive season.",
+    icon: "🎄",
+    start: "12-01",
+    end: "12-31",
+    category: "Gifts"
+  },
+  {
+    name: "Valentine's Day Gifts",
+    subtitle: "Find thoughtful gifts for someone special.",
+    icon: "❤️",
+    start: "02-01",
+    end: "02-14",
+    category: "Gifts"
+  },
+  {
+    name: "Black Friday Deals",
+    subtitle: "Explore global shopping opportunities.",
+    icon: "🛍️",
+    start: "11-20",
+    end: "11-30",
+    category: "Electronics"
+  },
+  {
+    name: "New Year Shopping",
+    subtitle: "Discover products and fresh opportunities.",
+    icon: "🎉",
+    start: "01-01",
+    end: "01-07",
+    category: "All"
+  }
+];
+
+const ilinkDefaultSeason = {
+  name: "Discover the World with iLink",
+  subtitle: "Explore products, marketplaces, gifts and football tickets.",
+  icon: "🌍",
+  category: "All"
+};
+
+function ilinkGetSeason(date = new Date()) {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const today = `${month}-${day}`;
+
+  return ilinkSeasons.find(season =>
+    today >= season.start && today <= season.end
+  ) || ilinkDefaultSeason;
+}
+
+function ilinkUpdateSeasonalPromotion() {
+  const season = ilinkGetSeason();
+
+  const title = document.getElementById("ilinkSeasonTitle");
+  const subtitle = document.getElementById("ilinkSeasonSubtitle");
+  const icon = document.getElementById("ilinkSeasonIcon");
+
+  if (title) title.textContent = season.name;
+  if (subtitle) subtitle.textContent = season.subtitle;
+  if (icon) icon.textContent = season.icon;
+}
+
+document.addEventListener("DOMContentLoaded", ilinkUpdateSeasonalPromotion);
