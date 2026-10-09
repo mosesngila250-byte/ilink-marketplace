@@ -1847,3 +1847,71 @@ function ilinkUpdateSeasonalPromotion() {
 }
 
 document.addEventListener("DOMContentLoaded", ilinkUpdateSeasonalPromotion);
+/* ILINK V2 — SEASONAL PROMOTION */
+
+.ilink-seasonal-promo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  max-width: 1000px;
+  margin: 35px auto;
+  padding: 28px;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.09),
+    rgba(100, 0, 255, 0.12),
+    rgba(5, 10, 25, 0.95)
+  );
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
+}
+
+.ilink-seasonal-icon {
+  font-size: 65px;
+  flex-shrink: 0;
+}
+
+.ilink-seasonal-label {
+  color: #00ffff;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.ilink-seasonal-content h2 {
+  margin: 10px 0;
+}
+
+.ilink-seasonal-content p {
+  line-height: 1.6;
+}
+
+.ilink-seasonal-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 18px;
+  border: 1px solid #00ffff;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.ilink-seasonal-button:hover {
+  background: rgba(0, 255, 255, 0.12);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+@media (max-width: 600px) {
+  .ilink-seasonal-promo {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+  }
+
+  .ilink-seasonal-icon {
+    font-size: 48px;
+  }
+   }
