@@ -770,3 +770,17 @@ function displayILinkFinderResults(products) {
     </div>
   `).join("");
 }
+// iLink Fashion Finder
+function selectFashion(category) {
+  const results = document.getElementById("fashionResults");
+
+  if (!results) return;
+
+  results.innerHTML = `
+    <h3>🔎 ${category}</h3>
+    <p>Finding ${category.toLowerCase()} products for you...</p>
+    <button type="button" onclick="showNotification('Searching iLink marketplaces for ${category}...')">
+      Explore ${category}
+    </button>
+  `;
+}
