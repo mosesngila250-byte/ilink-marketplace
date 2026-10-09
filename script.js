@@ -784,3 +784,24 @@ function selectFashion(category) {
     </button>
   `;
 }
+// iLink V2 - Finder Button Functionality
+document.addEventListener("DOMContentLoaded", function () {
+const finderButtons = document.querySelectorAll(
+"#finder button, .finder button, .finder-btn"
+);
+
+finderButtons.forEach(function (button) {
+button.addEventListener("click", function () {
+const category =
+button.dataset.category ||
+button.textContent.trim();
+
+  const message =
+    "iLink Finder: " + category +
+    " selected. Product matching is coming soon!";
+
+  alert(message);
+});
+
+});
+});
