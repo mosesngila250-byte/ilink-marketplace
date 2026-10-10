@@ -943,3 +943,23 @@ function showFinderMessage(message) {
 }
 
 });
+document.addEventListener("click", function (event) {
+    const button = event.target.closest("#finder button");
+
+    if (!button) return;
+
+    let message = document.getElementById("finder-test-message");
+
+    if (!message) {
+        message = document.createElement("p");
+        message.id = "finder-test-message";
+        message.style.cssText =
+            "color:white;background:#17122b;padding:15px;border-radius:10px;margin:15px 0;";
+
+        document.getElementById("finder").appendChild(message);
+    }
+
+    message.textContent =
+        "iLink Finder is responding! You pressed: " +
+        button.textContent.trim();
+});
