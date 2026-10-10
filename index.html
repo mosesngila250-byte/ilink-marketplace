@@ -672,3 +672,14 @@
 
 </body>
                          </html>
+document.addEventListener("DOMContentLoaded", function () {
+const finder = document.getElementById("finder");
+
+if (finder) {
+    console.log("iLink Finder detected!");
+    console.log("Buttons found:", finder.querySelectorAll("button").length);
+} else {
+    console.log("iLink Finder NOT detected!");
+}
+
+});
