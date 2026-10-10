@@ -901,3 +901,45 @@ document.addEventListener("click", function (event) {
     `;
   }
 });
+document.addEventListener("DOMContentLoaded", function () {
+const finder = document.getElementById("finder");
+
+if (!finder) return;
+
+const buttons = finder.querySelectorAll("button");
+
+buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        const category = button.textContent.trim().toLowerCase();
+
+        if (category.includes("fashion")) {
+            showFinderMessage("Fashion selected! Find clothes, outfits and clothing brands.");
+        } else if (category.includes("shoe")) {
+            showFinderMessage("Shoes selected! Find sneakers, trainers and formal shoes.");
+        } else if (category.includes("accessor")) {
+            showFinderMessage("Accessories selected! Find bags, watches and jewellery.");
+        } else if (category.includes("find it")) {
+            showFinderMessage("Choose your fashion category first, then search for a product.");
+        }
+    });
+});
+
+function showFinderMessage(message) {
+    let result = finder.querySelector("#finder-message");
+
+    if (!result) {
+        result = document.createElement("p");
+        result.id = "finder-message";
+        result.setAttribute("role", "status");
+        finder.appendChild(result);
+    }
+
+    result.textContent = message;
+    result.style.padding = "12px";
+    result.style.marginTop = "12px";
+    result.style.borderRadius = "10px";
+    result.style.background = "#17122b";
+    result.style.color = "#ffffff";
+}
+
+});
