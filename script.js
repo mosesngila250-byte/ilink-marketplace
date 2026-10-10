@@ -636,7 +636,7 @@ document.addEventListener("DOMContentLoaded", function () {
         searchFinder(category);
     };
 });
-   }
+   
 
 
 
