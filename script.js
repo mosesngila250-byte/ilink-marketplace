@@ -857,3 +857,47 @@ button.textContent.trim();
     setupFinder();
   }
 })();
+// iLink Finder - category buttons
+document.addEventListener("click", function (event) {
+  const finder = document.querySelector("#finder");
+
+  if (!finder || !finder.contains(event.target)) return;
+
+  const clicked = event.target.closest("button, a, [role='button']");
+
+  if (!clicked) return;
+
+  const category = clicked.textContent.trim();
+
+  const categories = {
+    "👗 Fashion": "Fashion",
+    "📱 Electronics": "Electronics",
+    "🎁 Gifts": "Gifts",
+    "🇨🇳 China": "China",
+    "🔥 Deals": "Deals",
+    "⚽ Tickets": "Tickets"
+  };
+
+  if (!categories[category]) return;
+
+  const selected = categories[category];
+
+  // Put the selected category into the Finder search box
+  const input = finder.querySelector("input");
+
+  if (input) {
+    input.value = selected;
+  }
+
+  // Show the selected category
+  const result = finder.querySelector(
+    ".finder-results, .finder-result, #finder-results"
+  );
+
+  if (result) {
+    result.innerHTML = `
+      <h2>🔎 ${selected}</h2>
+      <p>Finding the best ${selected.toLowerCase()} options for you...</p>
+    `;
+  }
+});
