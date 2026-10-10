@@ -637,8 +637,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
    }
-});
-};
+
+
 
 findButton.addEventListener("click", () => searchFinder());
 
