@@ -805,3 +805,55 @@ button.textContent.trim();
 
 });
 });
+// iLink Finder V2
+(function () {
+  function setupFinder() {
+    const finderButtons = document.querySelectorAll("button");
+    const finderInput = document.querySelector(
+      'input[placeholder*="black sneakers"], input[placeholder*="Try:"]'
+    );
+
+    const categories = {
+      "Fashion": "Fashion products",
+      "Electronics": "Electronics and gadgets",
+      "Gifts": "Gifts",
+      "China": "Products from China",
+      "Deals": "iLink deals",
+      "Tickets": "Football tickets"
+    };
+
+    finderButtons.forEach(function (button) {
+      const text = button.textContent.trim();
+
+      if (!categories[text]) return;
+
+      button.addEventListener("click", function () {
+        if (finderInput) {
+          finderInput.value = categories[text];
+        }
+
+        const resultBox = document.querySelector(
+          ".finder-results, .finder-result, #finder-results"
+        );
+
+        if (resultBox) {
+          resultBox.innerHTML =
+            "<h2>🔎 " + categories[text] + "</h2>" +
+            "<p>iLink is ready to help you find the best options.</p>";
+        } else {
+          alert(
+            "iLink Finder\n\n" +
+            categories[text] +
+            " selected.\n\nProduct matching will appear here next."
+          );
+        }
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupFinder);
+  } else {
+    setupFinder();
+  }
+})();
