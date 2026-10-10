@@ -963,3 +963,27 @@ document.addEventListener("click", function (event) {
         "iLink Finder is responding! You pressed: " +
         button.textContent.trim();
 });
+document.addEventListener("DOMContentLoaded", function () {
+const findButton = document.getElementById("finderButton");
+
+if (!findButton) {
+    console.log("iLink: finderButton not found");
+    return;
+}
+
+findButton.addEventListener("click", function () {
+    let message = document.getElementById("finder-result");
+
+    if (!message) {
+        message = document.createElement("p");
+        message.id = "finder-result";
+        message.setAttribute("role", "status");
+        findButton.insertAdjacentElement("afterend", message);
+    }
+
+    message.textContent = "iLink Fashion Finder is working! Next, we will connect product search.";
+    message.style.cssText =
+        "color:white;background:#17122b;padding:15px;border-radius:10px;margin-top:12px;";
+});
+
+});
