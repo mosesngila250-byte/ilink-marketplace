@@ -718,9 +718,4 @@ document.addEventListener("DOMContentLoaded", function () {
             findProducts();
         });
     });
-});
-window.selectFashion = function (category) {
-input.value = category;
-searchFinder(category);
-};
-};
+
