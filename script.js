@@ -695,124 +695,126 @@ console.log("iLink Finder V2 is ready.");
 });        
 <script src="script.js"></script>
 </body>
-</html>
-/* ==========================================
-   iLINK FINDER V3 - MARKETPLACE SEARCH
-   Built separately from Finder V2
+*/==========================================
+   iLINK FINDER V3 - CONNECTED TO V2
+   One search box. One Find It button.
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
-    const v2Input = document.getElementById("finderInput");
+    const input = document.getElementById("finderInput");
+    const button = document.getElementById("finderButton");
     const v2Results = document.getElementById("finderResults");
 
-    if (!v2Input || !v2Results) {
-        console.error("iLink V3: Finder elements not found.");
+    if (!input || !button || !v2Results) {
+        console.error("iLink Finder: Required V2 elements not found.");
         return;
     }
 
-    // Create a separate V3 results area.
-    let v3Results = document.getElementById("finderV3Results");
+    // Create a results area, NOT another search button.
+    let results = document.getElementById("finderV3Results");
 
-    if (!v3Results) {
-        v3Results = document.createElement("div");
-        v3Results.id = "finderV3Results";
-        v3Results.className = "finder-results";
-        v2Results.insertAdjacentElement("afterend", v3Results);
+    if (!results) {
+        results = document.createElement("div");
+        results.id = "finderV3Results";
+        results.style.marginTop = "20px";
+        v2Results.insertAdjacentElement("afterend", results);
     }
 
-    const marketplaces = [
-        {
-            name: "Alibaba",
-            description: "Wholesale products and suppliers",
-            url: "https://www.alibaba.com/trade/search?SearchText="
-        },
-        {
-            name: "AliExpress",
-            description: "Individual products and smaller orders",
-            url: "https://www.aliexpress.com/w/wholesale-"
-        },
-        {
-            name: "Amazon",
-            description: "Retail products and popular brands",
-            url: "https://www.amazon.com/s?k="
-        },
-        {
-            name: "eBay",
-            description: "Products from different sellers",
-            url: "https://www.ebay.com/sch/i.html?_nkw="
-        }
-    ];
-
     function findV3Products() {
-        const term = v2Input.value.trim();
+        const term = input.value.trim();
 
         if (!term) {
-            v3Results.innerHTML = `
-                <p>Please type a product name above to search marketplaces.</p>
-            `;
+            results.innerHTML =
+                "<p>Please enter a product to search for.</p>";
+            input.focus();
             return;
         }
 
-        const safeTerm = term.replace(/[&<>"']/g, function (character) {
-            return {
+        const query = encodeURIComponent(term);
+
+        const links = [
+            {
+                name: "🇨🇳 Alibaba Wholesale",
+                url: "https://www.alibaba.com/trade/search?SearchText=" + query
+            },
+            {
+                name: "🛍️ AliExpress",
+                url: "https://www.aliexpress.com/w/wholesale-" + query + ".html"
+            },
+            {
+                name: "🌎 Amazon",
+                url: "https://www.amazon.com/s?k=" + query
+            },
+            {
+                name: "🏷️ eBay",
+                url: "https://www.ebay.com/sch/i.html?_nkw=" + query
+            }
+        ];
+
+        results.innerHTML = `
+            <div class="finder-v3-panel">
+                <h3>🌍 iLink Marketplace Results</h3>
+                <p>Search for <strong>${escapeHTML(term)}</strong>
+                on these marketplaces:</p>
+
+                <div class="finder-v3-links">
+                    ${links.map(function (item) {
+                        return `
+                            <a
+                                class="finder-v3-link"
+                                href="${item.url}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                ${item.name} →
+                            </a>
+                        `;
+                    }).join("")}
+                </div>
+
+                <small>
+                    Listings, prices, availability, delivery and purchase
+                    terms are controlled by each marketplace.
+                </small>
+            </div>
+        `;
+
+        results.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    }
+
+    function escapeHTML(text) {
+        return text.replace(/[&<>"']/g, function (character) {
+            const entities = {
                 "&": "&amp;",
                 "<": "&lt;",
                 ">": "&gt;",
                 '"': "&quot;",
                 "'": "&#39;"
-            }[character];
+            };
+
+            return entities[character];
         });
-
-        const encodedTerm = encodeURIComponent(term);
-
-        const isWholesale =
-            /wholesale|bulk|supplier|factory|manufacturer|china|chinese|1688/i.test(term);
-
-        const selectedMarketplaces = isWholesale
-            ? marketplaces.filter(function (marketplace) {
-                return ["Alibaba", "AliExpress"].includes(marketplace.name);
-            })
-            : marketplaces;
-
-        const marketplaceCards = selectedMarketplaces.map(function (marketplace) {
-            let searchUrl = marketplace.url;
-
-            if (marketplace.name === "AliExpress") {
-                searchUrl += encodedTerm;
-            } else {
-                searchUrl += encodedTerm;
-            }
-
-            return `
-                <div class="finder-result-card">
-                    <h3>${marketplace.name}</h3>
-                    <p>${marketplace.description}</p>
-                    <a
-                        class="finder-explore"
-                        href="${searchUrl}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Search ${marketplace.name} ↗
-                    </a>
-                </div>
-            `;
-        }).join("");
-
-        v3Results.innerHTML = `
-            <div class="finder-v3-heading">
-                <h2>🌍 iLink Finder V3</h2>
-                <p>Marketplace searches for: <strong>${safeTerm}</strong></p>
-                <p>Choose a marketplace below to see matching listings.</p>
-            </div>
-            <div class="finder-v3-grid">
-                ${marketplaceCards}
-            </div>
-            <small>
-                Marketplace listings, prices, availability and delivery options
-                are controlled by each marketplace.
-            </small>
-        `;
     }
 
-    
+    // Reuse the existing V2 button.
+    // Capture the click before V2's old handler runs.
+    button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        findV3Products();
+    }, true);
+
+    // Make Enter use the same search.
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            findV3Products();
+        }
+    }, true);
+
+    console.log("iLink Finder V3 connected to V2.");
+});
