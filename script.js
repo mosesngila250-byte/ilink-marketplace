@@ -635,7 +635,90 @@ input.value = this.dataset.search || this.textContent.trim();
 searchFinder(input.value);
 });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("finderInput");
+    const findButton = document.getElementById("finderButton");
+    const results = document.getElementById("finderResults");
+    const chips = document.querySelectorAll(".finder-chip");
 
+    if (!input || !findButton || !results) {
+        console.log("iLink Finder elements not found");
+        return;
+    }
+
+    function findProducts() {
+        const term = input.value.trim().toLowerCase();
+
+        if (!term) {
+            results.innerHTML = `
+                <div class="finder-result">
+                    🔎 Type something like <strong>phone</strong>,
+                    <strong>fashion</strong>, <strong>football tickets</strong>,
+                    <strong>China products</strong> or <strong>gifts</strong>.
+                </div>
+            `;
+            return;
+        }
+
+        let title = "iLink Marketplace";
+        let text = "We found marketplace options for your search.";
+        let icon = "🛍️";
+
+        if (/phone|iphone|samsung|android|mobile/.test(term)) {
+            title = "Phones & Electronics";
+            text = "Explore phones, electronics and related products.";
+            icon = "📱";
+        } 
+        else if (/fashion|clothes|shoes|dress|shirt|bag/.test(term)) {
+            title = "Fashion";
+            text = "Explore fashion products and online fashion marketplaces.";
+            icon = "👕";
+        } 
+        else if (/ticket|football|manchester united|arsenal|chelsea|liverpool/.test(term)) {
+            title = "Football Tickets";
+            text = "Find football ticket opportunities through iLink.";
+            icon = "⚽";
+        } 
+        else if (/china|chinese|alibaba/.test(term)) {
+            title = "China Marketplace";
+            text = "Explore products from Chinese marketplaces.";
+            icon = "🇨🇳";
+        } 
+        else if (/gift|christmas|birthday|present/.test(term)) {
+            title = "Gifts";
+            text = "Find gifts for Christmas, birthdays and special occasions.";
+            icon = "🎁";
+        }
+
+        results.innerHTML = `
+            <div class="finder-result">
+                <div class="finder-result-icon">${icon}</div>
+                <div>
+                    <h3>${title}</h3>
+                    <p>${text}</p>
+                    <button class="finder-open-btn" onclick="alert('iLink ${title} section coming next!')">
+                        Explore
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    findButton.addEventListener("click", findProducts);
+
+    input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            findProducts();
+        }
+    });
+
+    chips.forEach(function (chip) {
+        chip.addEventListener("click", function () {
+            input.value = chip.textContent.trim();
+            findProducts();
+        });
+    });
+});
 window.selectFashion = function (category) {
 input.value = category;
 searchFinder(category);
