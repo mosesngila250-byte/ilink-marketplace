@@ -640,3 +640,4 @@ window.selectFashion = function (category) {
 input.value = category;
 searchFinder(category);
 };
+};
