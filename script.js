@@ -690,11 +690,7 @@ window.selectFashion = function (category) {
     });
 };
 
-console.log("iLink Finder V2 is ready.");
-
-});        
-<script src="script.js"></script>
-</body>
+console.log("iLink Finder V2 is 
 */==========================================
    iLINK FINDER V3 - CONNECTED TO V2
    One search box. One Find It button.
