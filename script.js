@@ -525,116 +525,171 @@ console.log(
 /* =====================================================
    END OF iLINK SCRIPT
 /* =====================================================
-   iLINK FINDER SYSTEM============================================= */
-document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("finderInput");
-    const findButton = document.getElementById("finderButton");
-    const results = document.getElementById("finderResults");
-    const chips = document.querySelectorAll(".finder-chip");
+   /* ==========================================
+iLINK FINDER V2
+========================================== */
 
-    if (!input || !findButton || !results) {
-        console.error("iLink Finder: A required HTML element is missing.");
+document.addEventListener("DOMContentLoaded", function () {
+
+const input = document.getElementById("finderInput");
+const findButton = document.getElementById("finderButton");
+const results = document.getElementById("finderResults");
+const chips = document.querySelectorAll(".finder-chip");
+
+// Stop safely if the Finder HTML is missing.
+if (!input || !findButton || !results) {
+    console.error("iLink Finder: Required HTML elements not found.");
+    return;
+}
+
+// iLink Finder categories.
+const categories = [
+    {
+        name: "Fashion",
+        icon: "👗",
+        keywords: /fashion|clothes|clothing|dress|shoe|sneaker|shirt|bag|jacket|trouser|accessories|clothing|shoes|dresses/i,
+        description: "Discover clothing, shoes, bags and accessories.",
+        target: "marketplaces"
+    },
+    {
+        name: "Electronics",
+        icon: "📱",
+        keywords: /phone|iphone|samsung|android|laptop|electronics|headphone|gadget|computer|tablet|smartwatch/i,
+        description: "Explore phones, computers and electronic gadgets.",
+        target: "marketplaces"
+    },
+    {
+        name: "Gifts",
+        icon: "🎁",
+        keywords: /gift|christmas|birthday|present|holiday|toys/i,
+        description: "Find gifts for birthdays, Christmas and special occasions.",
+        target: "marketplaces"
+    },
+    {
+        name: "China Marketplace",
+        icon: "🇨🇳",
+        keywords: /china|chinese|alibaba|aliexpress|1688/i,
+        description: "Explore products from Chinese marketplaces.",
+        target: "marketplaces"
+    },
+    {
+        name: "Deals",
+        icon: "🔥",
+        keywords: /deal|discount|cheap|offer|sale|bargain/i,
+        description: "Explore marketplace deals and special offers.",
+        target: "marketplaces"
+    },
+    {
+        name: "Football Tickets",
+        icon: "⚽",
+        keywords: /ticket|football|soccer|manchester united|arsenal|chelsea|liverpool|premier league/i,
+        description: "Explore football ticket opportunities.",
+        target: "tickets"
+    }
+];
+
+// Display search results.
+function searchFinder(searchTerm) {
+
+    const term = (searchTerm || "").trim();
+
+    if (!term) {
+        results.innerHTML = `
+            <div class="finder-empty">
+                <div class="finder-icon">🔎</div>
+                <h3>What are you looking for?</h3>
+                <p>Try fashion, phones, gifts, China products, deals or football tickets.</p>
+            </div>
+        `;
         return;
     }
 
-    const categories = {
-        fashion: {
-            title: "👗 Fashion Finder",
-            description: "Explore clothing, shoes, bags and accessories."
-        },
-        electronics: {
-            title: "📱 Electronics",
-            description: "Explore phones, smartwatches and gadgets."
-        },
-        gifts: {
-            title: "🎁 Gift Finder",
-            description: "Discover gifts for birthdays and holidays."
-        },
-        china: {
-            title: "🇨🇳 China Marketplace",
-            description: "Explore products from Chinese marketplaces."
-        },
-        deals: {
-            title: "🔥 Deals Finder",
-            description: "Explore products and special offers."
-        },
-        tickets: {
-            title: "⚽ Football Tickets",
-            description: "Explore football ticket opportunities."
-        }
-    };
+    const category = categories.find(function (item) {
+        return item.keywords.test(term);
+    });
 
-    function searchFinder(query) {
-const term = (query || input.value).trim().toLowerCase();
+    if (!category) {
+        results.innerHTML = `
+            <div class="finder-empty">
+                <div class="finder-icon">🌍</div>
+                <h3>Let's keep exploring!</h3>
+                <p>We couldn't match that search to a category yet.</p>
+                <p>Try fashion, electronics, gifts, China, deals or football tickets.</p>
+            </div>
+        `;
+        return;
+    }
 
-if (!term) {
-    results.innerHTML = `
-        <div class="finder-empty">
-            <h3>🔎 What are you looking for?</h3>
-            <p>Try fashion, phones, gifts, China products, deals or football tickets.</p>
-        </div>`;
-    return;
-}
-
-let key = null;
-
-if (/ticket|football|manchester united|arsenal|chelsea|liverpool/.test(term)) {
-    key = "tickets";
-} else if (/china|chinese|alibaba/.test(term)) {
-    key = "china";
-} else if (/gift|christmas|birthday|present/.test(term)) {
-    key = "gifts";
-} else if (/deal|discount|cheap|offer/.test(term)) {
-    key = "deals";
-} else if (/phone|samsung|iphone|laptop|electronics|headphone|gadget/.test(term)) {
-    key = "electronics";
-} else if (/fashion|clothes|clothing|dress|shoe|sneaker|shirt|bag|jacket|trouser/.test(term)) {
-    key = "fashion";
-}
-
-if (!key) {
-    results.innerHTML = `
-        <div class="finder-empty">
-            <h3>🔍 Let's explore!</h3>
-            <p>We couldn't identify a category yet. Try searching for fashion, electronics, gifts, China products, deals or football tickets.</p>
-        </div>`;
-    return;
-}
-
-const item = categories[key];
-
-results.innerHTML = `
-    <div class="finder-result-card">
-        <h3>${item.title}</h3>
-        <p>${item.description}</p>
-        <p><strong>Your search:</strong> ${term.replace(/[&<>"']/g, char => ({
+    const safeTerm = term.replace(/[&<>"']/g, function (char) {
+        return {
             "&": "&amp;",
             "<": "&lt;",
             ">": "&gt;",
             '"': "&quot;",
             "'": "&#39;"
-        }[char]))}</p>
-        <button type="button" class="finder-explore"
-            onclick="document.getElementById('${key === "tickets" ? "football-tickets" : key === "china" ? "marketplace" : key === "fashion" || key === "electronics" || key === "gifts" || key === "deals" ? "marketplace" : "finder"}')?.scrollIntoView({behavior:'smooth'})">
-            Explore ${key === "tickets" ? "Tickets" : key === "china" ? "China Marketplace" : "Marketplace"}
-        </button>
-    </div>`;
+        }[char];
+    });
 
+    results.innerHTML = `
+        <div class="finder-result-card">
+            <div class="finder-result-icon">${category.icon}</div>
+            <h3>${category.name}</h3>
+            <p>${category.description}</p>
+            <p><strong>Your search:</strong> ${safeTerm}</p>
+            <button type="button" class="finder-explore">
+                Explore ${category.name}
+            </button>
+        </div>
+    `;
+
+    const exploreButton = results.querySelector(".finder-explore");
+
+    exploreButton.addEventListener("click", function () {
+        const target = document.getElementById(category.target);
+
+        if (target) {
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        } else {
+            results.querySelector("p").textContent =
+                category.description + " The relevant section is coming soon.";
+        }
+    });
 }
-findButton.addEventListener("click", () => searchFinder());
 
-input.addEventListener("keydown", event => {
-if (event.key === "Enter") {
-searchFinder();
-}
+// Connect the Find button.
+findButton.addEventListener("click", function () {
+    searchFinder(input.value);
 });
 
-chips.forEach(chip => {
-chip.addEventListener("click", function () {
-input.value = this.dataset.search || this.textContent.trim();
-searchFinder(input.value);
+// Allow searches using the Enter key.
+input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        searchFinder(input.value);
+    }
 });
+
+// Connect the suggestion buttons.
+chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+        input.value = chip.dataset.search || chip.textContent.trim();
+        searchFinder(input.value);
+    });
 });
 
+// Support the Fashion Finder buttons already in index.html.
+window.selectFashion = function (category) {
+    input.value = category;
+    searchFinder(category);
+    results.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+};
 
+console.log("iLink Finder V2 is ready.");
 
+});        
