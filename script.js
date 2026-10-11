@@ -565,78 +565,59 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     function searchFinder(query) {
-        const term = (query || input.value).trim().toLowerCase();
+const term = (query || input.value).trim().toLowerCase();
 
-        if (!term) {
-            results.innerHTML = `
-                <div class="finder-empty">
-                    <h3>🔎 What are you looking for?</h3>
-                    <p>Enter fashion, electronics, gifts, China products, deals or football tickets.</p>
-                </div>`;
-            return;
-        }
+if (!term) {
+    results.innerHTML = `
+        <div class="finder-empty">
+            <h3>🔎 What are you looking for?</h3>
+            <p>Try fashion, phones, gifts, China products, deals or football tickets.</p>
+        </div>`;
+    return;
+}
 
-        const key = Object.keys(categories).find(category =>
-            term.includes(category) ||
-            (category === "tickets" && term.includes("football")) ||
-            (category === "china" && term.includes("products"))
-        );
+let key = null;
 
-        if (!key) {
-            results.innerHTML = `
-                <div class="finder-empty">
-                    <h3>🔍 No matching category yet</h3>
-                    <p>Try Fashion, Electronics, Gifts, China, Deals or Football Tickets.</p>
-                </div>`;
-            return;
-        }
+if (/ticket|football|manchester united|arsenal|chelsea|liverpool/.test(term)) {
+    key = "tickets";
+} else if (/china|chinese|alibaba/.test(term)) {
+    key = "china";
+} else if (/gift|christmas|birthday|present/.test(term)) {
+    key = "gifts";
+} else if (/deal|discount|cheap|offer/.test(term)) {
+    key = "deals";
+} else if (/phone|samsung|iphone|laptop|electronics|headphone|gadget/.test(term)) {
+    key = "electronics";
+} else if (/fashion|clothes|clothing|dress|shoe|sneaker|shirt|bag|jacket|trouser/.test(term)) {
+    key = "fashion";
+}
 
-        const item = categories[key];
+if (!key) {
+    results.innerHTML = `
+        <div class="finder-empty">
+            <h3>🔍 Let's explore!</h3>
+            <p>We couldn't identify a category yet. Try searching for fashion, electronics, gifts, China products, deals or football tickets.</p>
+        </div>`;
+    return;
+}
 
-        results.innerHTML = `
-            <div class="finder-result-card">
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-                <button type="button" class="finder-explore">
-                    Explore ${item.title.replace(/^[^\s]+\s/, "")}
-                </button>
-            </div>`;
+const item = categories[key];
 
-        results.querySelector(".finder-explore").addEventListener("click", function () {
-            const target = key === "tickets"
-                ? document.getElementById("tickets")
-                : document.getElementById("marketplaces");
+results.innerHTML = `
+    <div class="finder-result-card">
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <p><strong>Your search:</strong> ${term.replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char]))}</p>
+        <button type="button" class="finder-explore"
+            onclick="document.getElementById('${key === "tickets" ? "football-tickets" : key === "china" ? "marketplace" : key === "fashion" || key === "electronics" || key === "gifts" || key === "deals" ? "marketplace" : "finder"}')?.scrollIntoView({behavior:'smooth'})">
+            Explore ${key === "tickets" ? "Tickets" : key === "china" ? "China Marketplace" : "Marketplace"}
+        </button>
+    </div>`;
 
-            if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
-            } else {
-                results.insertAdjacentHTML(
-                    "beforeend",
-                    "<p>More marketplace destinations are coming soon.</p>"
-                );
-            }
-        });
-    }
-
-    findButton.addEventListener("click", () => searchFinder());
-
-    input.addEventListener("keydown", event => {
-        if (event.key === "Enter") searchFinder();
-    });
-
-    chips.forEach(chip => {
-        chip.addEventListener("click", function () {
-            input.value = this.dataset.search || this.textContent.trim();
-            searchFinder(input.value);
-        });
-    });
-
-    window.selectFashion = function (category) {
-        input.value = category;
-        searchFinder(category);
-    };
-});
-   
-
-
-
+}
