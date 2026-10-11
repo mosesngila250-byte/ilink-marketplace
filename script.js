@@ -525,7 +525,7 @@ console.log(
 /* =====================================================
    END OF iLINK SCRIPT
 /* =====================================================
-   /* ==========================================
+   /*==========================================
 iLINK FINDER V2
 ========================================== */
 
@@ -694,7 +694,7 @@ console.log("iLink Finder V2 is
 */==========================================
    iLINK FINDER V3 - CONNECTED TO V2
    One search box. One Find It button.
-========================================== */
+*/========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("finderInput");
