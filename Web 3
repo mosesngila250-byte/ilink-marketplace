@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b18">
+  <meta name="description" content="Discover global products, fashion, electronics, gifts, deals and football tickets with iLink.">
+  <title>iLink — Find Anything. Discover Everything.</title>
+  <link rel="stylesheet" href="styles.css">
+</head><body>
+  <div class="site-shell"><!-- NAVIGATION -->
+<header class="topbar" id="home">
+  <a class="brand" href="#home" aria-label="iLink home">
+    <span class="brand-mark">i</span>
+    <span>iLink<span class="brand-dot">.</span></span>
+  </a>
+
+  <button class="menu-toggle" id="menuToggle"
+    aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+  <nav class="navigation" id="mainNavigation">
+    <a href="#finder">Finder</a>
+    <a href="#markets">Markets</a>
+    <a href="#deals">Deal Live</a>
+    <a href="#fashion">Fashion</a>
+    <a href="#tickets">Tickets</a>
+  </nav>
+
+  <a href="#finder" class="nav-cta">Explore iLink ↗</a>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero section-wrap">
+    <div class="hero-copy">
+      <div class="live-label">
+        <span class="pulse-dot"></span>
+        YOUR WORLD. ONE LINK.
+      </div>
+
+      <h1>
+        Find Anything.<br>
+        <span class="gradient-text">Discover Everything.</span>
+      </h1>
+
+      <p class="hero-description">
+        Explore products, discover new markets, find amazing deals
+        and search for your next favourite thing—all through iLink.
+      </p>
+
+      <form class="hero-search" id="heroSearchForm">
+        <span aria-hidden="true">⌕</span>
+        <input id="heroSearchInput" type="search"
+          placeholder="What do you want to discover?"
+          aria-label="Search iLink">
+        <button type="submit">Discover ↗</button>
+      </form>
+
+      <div class="hero-quick-links">
+        <span>Explore:</span>
+        <a href="#fashion">Fashion</a>
+        <a href="#electronics">Electronics</a>
+        <a href="#gifts">Gifts</a>
+        <a href="#tickets">Football</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="orbit orbit-one"></div>
+      <div class="orbit orbit-two"></div>
+
+      <div class="hero-core">
+        <div class="core-symbol">i</div>
+        <span>DISCOVER MORE</span>
+        <strong>iLink Universe</strong>
+      </div>
+
+      <div class="floating-card float-fashion">
+        <span>👟</span>
+        <div><strong>Fashion</strong><small>Find your style</small></div>
+      </div>
+
+      <div class="floating-card float-tech">
+        <span>📱</span>
+        <div><strong>Technology</strong><small>Explore gadgets</small></div>
+      </div>
+
+      <div class="floating-card float-deals">
+        <span>⚡</span>
+        <div><strong>Deal Live</strong><small>Discover offers</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVERY CATEGORIES -->
+  <section class="section-wrap category-section">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">YOUR NEXT DISCOVERY</span>
+        <h2>Explore the <span class="gradient-text">iLink universe.</span></h2>
+      </div>
+      <p>One destination. Many ways to discover.</p>
+    </div>
+
+    <div class="category-grid">
+      <a class="category-card category-fashion" href="#fashion">
+        <span class="category-icon">👗</span>
+        <span class="category-name">Fashion</span>
+        <span class="category-subtitle">Wear your identity ↗</span>
+      </a>
+
+      <a class="category-card category-tech" href="#electronics">
+        <span class="category-icon">📱</span>
+        <span class="category-name">Electronics</span>
+        <span class="category-subtitle">Meet your next device ↗</span>
+      </a>
+
+      <a class="category-card category-gifts" href="#gifts">
+        <span class="category-icon">🎁</span>
+        <span class="category-name">Gifts</span>
+        <span class="category-subtitle">Make moments special ↗</span>
+      </a>
+
+      <a class="category-card category-china" href="#china">
+        <span class="category-icon">🌏</span>
+        <span class="category-name">China Hub</span>
+        <span class="category-subtitle">Explore global sourcing ↗</span>
+      </a>
+
+      <a class="category-card category-football" href="#tickets">
+        <span class="category-icon">⚽</span>
+        <span class="category-name">Football</span>
+        <span class="category-subtitle">Find ticket partners ↗</span>
+      </a>
+
+      <a class="category-card category-deals" href="#deals">
+        <span class="category-icon">⚡</span>
+        <span class="category-name">Deal Live</span>
+        <span class="category-subtitle">Explore featured deals ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FINDER -->
+  <section class="section-wrap finder-section" id="finder">
+    <div class="finder-panel">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">THE iLink DISCOVERY ENGINE</span>
+          <h2>Meet your <span class="gradient-text">Finder.</span></h2>
+        </div>
+        <span class="finder-version">FINDER V3</span>
+      </div>
+
+      <p class="section-description">
+        Tell iLink what you are looking for. Start with a product,
+        a category, a gift idea or a shopping destination.
+      </p>
+
+      <form class="finder-search" id="finderForm">
+        <span aria-hidden="true">⌕</span>
+        <input id="finderInput" type="search"
+          placeholder="e.g. black sneakers, gaming phone, birthday gift"
+          autocomplete="off" aria-label="Describe what you want to find">
+        <button type="submit">Find It ↗</button>
+      </form>
+
+      <div class="finder-chips">
+        <button type="button" class="finder-chip" data-search="Fashion">👗 Fashion</button>
+        <button type="button" class="finder-chip" data-search="Electronics">📱 Electronics</button>
+        <button type="button" class="finder-chip" data-search="Gifts">🎁 Gifts</button>
+        <button type="button" class="finder-chip" data-search="China products">🇨🇳 China</button>
+        <button type="button" class="finder-chip" data-search="Deals">⚡ Deals</button>
+        <button type="button" class="finder-chip" data-search="Football tickets">⚽ Tickets</button>
+      </div>
+
+      <div class="finder-results" id="finderResults" aria-live="polite">
+        <div class="finder-empty">
+          <span>✧</span>
+          <h3>Your next discovery starts here.</h3>
+          <p>Search above or choose a category to get started.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEAL LIVE -->
+  <section class="section-wrap content-section" id="deals">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">THE DISCOVERY NEVER STOPS</span>
+        <h2>iLink <span class="gradient-text">Deal Live.</span></h2>
+      </div>
+      <span class="status-pill"><span class="pulse-dot"></span> DEAL DISCOVERY</span>
+    </div>
+
+    <p class="section-description">
+      Explore featured shopping destinations and look for offers
+      that match what you need.
+    </p>
+
+    <div class="feature-grid">
+      <article class="feature-card deal-card">
+        <div class="feature-art art-deals">⚡</div>
+        <span class="eyebrow">DEAL DISCOVERY</span>
+        <h3>Find your next great deal.</h3>
+        <p>Explore shopping destinations and look for current offers.</p>
+        <button class="text-button" data-query="Deals">Explore deals ↗</button>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-art art-fashion">👟</div>
+        <span class="eyebrow">TREND DISCOVERY</span>
+        <h3>Find your next style.</h3>
+        <p>Discover fashion, footwear and accessories across marketplaces.</p>
+        <a class="text-button" href="#fashion">Explore fashion ↗</a>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-art art-tech">🎮</div>
+        <span class="eyebrow">TECH DISCOVERY</span>
+        <h3>Upgrade your world.</h3>
+        <p>Explore phones, gaming products and smart devices.</p>
+        <a class="text-button" href="#electronics">Explore technology ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- MARKETPLACES -->
+  <section class="section-wrap content-section" id="markets">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">A WORLD OF POSSIBILITIES</span>
+        <h2>Global <span class="gradient-text">marketplaces.</span></h2>
+      </div>
+    </div>
+
+    <p class="section-description">
+      Explore external shopping destinations. Availability, delivery
+      and regional access depend on each marketplace.
+    </p>
+
+    <div class="marketplace-grid">
+      <article class="marketplace-card">
+        <span class="marketplace-icon">📦</span>
+        <h3>Amazon</h3>
+        <p>Discover products across a range of categories.</p>
+        <a class="card-link" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Explore Amazon ↗</a>
+      </article>
+
+      <article class="marketplace-card">
+        <span class="marketplace-icon">🏭</span>
+        <h3>Alibaba</h3>
+        <p>Explore suppliers, products and wholesale sourcing.</p>
+        <a class="card-link" href="https://www.alibaba.com/" target="_blank" rel="noopener noreferrer">Explore Alibaba ↗</a>
+      </article>
+
+      <article class="marketplace-card">
+        <span class="marketplace-icon">🌏</span>
+        <h3>AliExpress</h3>
+        <p>Browse products from sellers around the world.</p>
+        <a class="card-link" href="https://www.aliexpress.com/" target="_blank" rel="noopener noreferrer">Explore AliExpress ↗</a>
+      </article>
+
+      <article class="marketplace-card">
+        <span class="marketplace-icon">🛍️</span>
+        <h3>eBay</h3>
+        <p>Discover new products and second-hand finds.</p>
+        <a class="card-link" href="https://www.ebay.com/" target="_blank" rel="noopener noreferrer">Explore eBay ↗</a>
+      </article>
+
+      <article class="marketplace-card">
+        <span class="marketplace-icon">✨</span>
+        <h3>SHEIN</h3>
+        <p>Explore clothing, accessories and lifestyle products.</p>
+        <a class="card-link" href="https://www.shein.com/" target="_blank" rel="noopener noreferrer">Explore SHEIN ↗</a>
+      </article>
+
+      <article class="marketplace-card">
+        <span class="marketplace-icon">🎨</span>
+        <h3>Etsy</h3>
+        <p>Discover handmade, personalised and creative products.</p>
+        <a class="card-link" href="https://www.etsy.com/" target="_blank" rel="noopener noreferrer">Explore Etsy ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- FASHION -->
+  <section class="section-wrap content-section" id="fashion">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">STYLE STARTS WITH DISCOVERY</span>
+        <h2>The <span class="gradient-text">Fashion Hub.</span></h2>
+      </div>
+    </div>
+
+    <p class="section-description">
+      Choose your category and use Finder to explore fashion products.
+    </p>
+
+    <div class="fashion-grid">
+      <button class="fashion-tile" data-query="Clothing"><span>👕</span>Clothing ↗</button>
+      <button class="fashion-tile" data-query="Shoes"><span>👟</span>Shoes ↗</button>
+      <button class="fashion-tile" data-query="Bags"><span>👜</span>Bags ↗</button>
+      <button class="fashion-tile" data-query="Dresses"><span>👗</span>Dresses ↗</button>
+      <button class="fashion-tile" data-query="Accessories"><span>💎</span>Accessories ↗</button>
+      <button class="fashion-tile" data-query="Streetwear"><span>🧢</span>Streetwear ↗</button>
+    </div>
+  </section>
+
+  <!-- ELECTRONICS -->
+  <section class="section-wrap content-section" id="electronics">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">TECH THAT MOVES YOU</span>
+        <h2>Electronics <span class="gradient-text">Hub.</span></h2>
+      </div>
+    </div>
+
+    <div class="electronics-panel">
+      <div class="electronics-copy">
+        <span class="eyebrow">YOUR NEXT UPGRADE</span>
+        <h3>Technology for the way you live.</h3>
+        <p>Explore smartphones, computers, gaming and smart accessories.</p>
+        <button class="primary-button" data-query="Electronics">Explore electronics ↗</button>
+      </div>
+
+      <div class="electronics-art" aria-hidden="true">
+        <span>📱</span><span>🎧</span><span>💻</span><span>🎮</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHINA HUB -->
+  <section class="section-wrap content-section" id="china">
+    <div class="china-panel">
+      <div class="china-art" aria-hidden="true">🌏</div>
+      <div>
+        <span class="eyebrow">GLOBAL SOURCING</span>
+        <h2>Discover the <span class="gradient-text">China Hub.</span></h2>
+        <p>
+          Explore Chinese products, electronics, fashion, machinery
+          and wholesale sourcing opportunities.
+        </p>
+        <div class="button-row">
+          <button class="primary-button" data-query="China products">Explore products ↗</button>
+          <a class="secondary-button" href="https://www.alibaba.com/" target="_blank" rel="noopener noreferrer">Find suppliers ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFTS -->
+  <section class="section-wrap content-section" id="gifts">
+    <div class="gift-panel">
+      <div>
+        <span class="eyebrow">GIFTS FOR EVERY MOMENT</span>
+        <h2 id="giftHeadline">Find something unforgettable.</h2>
+        <p id="giftDescription">
+          Discover thoughtful gifts for birthdays, celebrations and special occasions.
+        </p>
+        <button class="primary-button" data-query="Gift ideas">Find gifts ↗</button>
+      </div>
+      <div class="gift-art" id="giftArt" aria-hidden="true">🎁✨</div>
+    </div>
+
+    <div class="gift-occasions">
+      <button data-query="Birthday gifts">🎂 Birthdays</button>
+      <button data-query="Valentine gifts">💝 Valentine’s</button>
+      <button data-query="Christmas gifts">🎄 Christmas</button>
+      <button data-query="Wedding gifts">💍 Weddings</button>
+    </div>
+  </section>
+
+  <!-- FOOTBALL TICKETS -->
+  <section class="section-wrap content-section" id="tickets">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">THE GAME STARTS HERE</span>
+        <h2>Football <span class="gradient-text">Tickets.</span></h2>
+      </div>
+    </div>
+
+    <p class="section-description">
+      Find official club ticket information and authorised ticket partners.
+      Availability and eligibility vary by match and provider.
+    </p>
+
+    <div class="club-grid">
+      <article class="club-card"><span>🔴</span><h3>Manchester United</h3><a href="https://www.manutd.com/" target="_blank" rel="noopener noreferrer">Official website ↗</a></article>
+      <article class="club-card"><span>🔴</span><h3>Arsenal</h3><a href="https://www.arsenal.com/" target="_blank" rel="noopener noreferrer">Official website ↗</a></article>
+      <article class="club-card"><span>🔵</span><h3>Chelsea</h3><a href="https://www.chelseafc.com/" target="_blank" rel="noopener noreferrer">Official website ↗</a></article>
+      <article class="club-card"><span>🔴</span><h3>Liverpool</h3><a href="https://www.liverpoolfc.com/" target="_blank" rel="noopener noreferrer">Official website ↗</a></article>
+    </div>
+  </section>
+
+  <!-- FUTURE VOUCHERS -->
+  <section class="section-wrap content-section" id="vouchers">
+    <div class="voucher-panel">
+      <div class="voucher-symbol">◇</div>
+      <div>
+        <span class="eyebrow">THE NEXT CHAPTER</span>
+        <h2>Introducing the future of <span class="gradient-text">iLink Vouchers.</span></h2>
+        <p>
+          A future-ready concept for digital gifts and transferable vouchers,
+          with potential NFT features as the platform develops.
+        </p>
+        <span class="coming-soon-label">✦ FUTURE FEATURE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <a class="brand" href="#home"><span class="brand-mark">i</span><span>iLink<span class="brand-dot">.</span></span></a>
+    <p>One link. Many markets.</p>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#finder">Finder</a>
+      <a href="#markets">Markets</a>
+      <a href="#tickets">Tickets</a>
+      <a href="#vouchers">Vouchers</a>
+    </div>
+    <p class="copyright">© 2026 iLink. All rights reserved.</p>
+  </footer>
+
+</main>
+
+  </div>  <div id="notification" class="notification" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
