@@ -815,28 +815,4 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     }
 
-    // Add a separate V3 button without changing the original Find It button.
-    let v3Button = document.getElementById("finderV3Button");
-
-    if (!v3Button) {
-        v3Button = document.createElement("button");
-        v3Button.id = "finderV3Button";
-        v3Button.type = "button";
-        v3Button.textContent = "🌍 Search All Marketplaces";
-        v3Button.className = "finder-explore";
-        v3Button.style.margin = "16px 0";
-
-        v2Results.insertAdjacentElement("afterend", v3Button);
-        v3Button.insertAdjacentElement("afterend", v3Results);
-    }
-
-    v3Button.addEventListener("click", findV3Products);
-
-    v2Input.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            findV3Products();
-        }
-    });
-
-    console.log("iLink Finder V3 is ready.");
-});
+    
