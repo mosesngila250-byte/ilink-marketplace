@@ -634,6 +634,6 @@ chip.addEventListener("click", function () {
 input.value = this.dataset.search || this.textContent.trim();
 searchFinder(input.value);
 });
-});
+
 
 
