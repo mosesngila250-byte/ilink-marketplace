@@ -621,3 +621,22 @@ results.innerHTML = `
     </div>`;
 
 }
+findButton.addEventListener("click", () => searchFinder());
+
+input.addEventListener("keydown", event => {
+if (event.key === "Enter") {
+searchFinder();
+}
+});
+
+chips.forEach(chip => {
+chip.addEventListener("click", function () {
+input.value = this.dataset.search || this.textContent.trim();
+searchFinder(input.value);
+});
+});
+
+window.selectFashion = function (category) {
+input.value = category;
+searchFinder(category);
+};
