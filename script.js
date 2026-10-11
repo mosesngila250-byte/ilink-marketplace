@@ -693,3 +693,6 @@ window.selectFashion = function (category) {
 console.log("iLink Finder V2 is ready.");
 
 });        
+<script src="script.js"></script>
+</body>
+</html>
