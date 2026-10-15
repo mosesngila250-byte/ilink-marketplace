@@ -686,12 +686,16 @@ window.selectFashion = function (category) {
     searchFinder(category);
     results.scrollIntoView({
         behavior: "smooth",
-        console.log("iLink Finder V2 is ready.");
+        block: "nearest"
+    });
+};
+
+console.log("iLink Finder V2 is ready.");
+
 /* ==========================================
    iLINK FINDER V3 - CONNECTED TO V2
    One search box. One Find It button.
 ========================================== */
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("finderInput");
