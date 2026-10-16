@@ -2025,3 +2025,141 @@ document.addEventListener("DOMContentLoaded", ilinkUpdateSeasonalPromotion);
         padding: 18px;
     }
 }
+/* ==========================================
+iLINK FINDER V3 — FUTURISTIC MARKETPLACE
+Adds a neon background without changing HTML
+========================================== */
+
+.ilink-finder {
+position: relative;
+isolation: isolate;
+overflow: hidden;
+padding: 45px 20px;
+border-radius: 24px;
+background:
+radial-gradient(ellipse at 15% 15%, rgba(0, 180, 255, 0.16), transparent 45%),
+radial-gradient(ellipse at 85% 75%, rgba(140, 60, 255, 0.16), transparent 45%),
+#070b18;
+border: 1px solid rgba(0, 220, 255, 0.25);
+}
+
+.ilink-finder::before {
+content: "ALIBABA     AMAZON     eBay     AliExpress";
+position: absolute;
+z-index: -1;
+top: 24%;
+left: 0;
+width: 100%;
+text-align: center;
+font-size: clamp(20px, 4vw, 48px);
+font-weight: 900;
+letter-spacing: 3px;
+color: rgba(100, 190, 255, 0.07);
+pointer-events: none;
+overflow-wrap: anywhere;
+}
+
+.ilink-finder .finder-header,
+.ilink-finder .finder-box,
+.ilink-finder .finder-suggestions,
+.ilink-finder .finder-results,
+.ilink-finder .fashion-finder {
+position: relative;
+z-index: 1;
+}
+
+.ilink-finder .finder-badge {
+color: #00eaff;
+text-shadow: 0 0 12px rgba(0, 234, 255, 0.5);
+}
+
+.ilink-finder .finder-box {
+display: flex;
+gap: 10px;
+max-width: 760px;
+margin: 24px auto;
+padding: 8px;
+border: 1px solid rgba(0, 234, 255, 0.6);
+border-radius: 16px;
+background: rgba(5, 12, 30, 0.92);
+box-shadow: 0 0 22px rgba(0, 234, 255, 0.12);
+}
+
+.ilink-finder #finderInput {
+flex: 1;
+min-width: 0;
+padding: 14px;
+color: #ffffff;
+background: transparent;
+border: none;
+outline: none;
+}
+
+.ilink-finder #finderInput::placeholder {
+color: #9baac4;
+}
+
+.ilink-finder #finderButton {
+padding: 13px 22px;
+color: #04101c;
+font-weight: 800;
+background: linear-gradient(135deg, #00eaff, #7c8cff);
+border: none;
+border-radius: 11px;
+cursor: pointer;
+}
+
+.ilink-finder .finder-chip {
+margin: 5px;
+color: #d9faff;
+background: rgba(0, 200, 255, 0.08);
+border: 1px solid rgba(0, 220, 255, 0.3);
+border-radius: 30px;
+}
+
+.ilink-finder .finder-chip:hover {
+box-shadow: 0 0 12px rgba(0, 220, 255, 0.25);
+}
+
+#finderV3Results .finder-v3-panel {
+color: #f2f7ff;
+background: rgba(7, 12, 30, 0.96);
+border: 1px solid rgba(0, 220, 255, 0.35);
+border-radius: 20px;
+box-shadow: 0 0 24px rgba(0, 220, 255, 0.1);
+}
+
+#finderV3Results .finder-v3-link {
+color: #e9fbff;
+background: linear-gradient(
+135deg,
+rgba(0, 220, 255, 0.12),
+rgba(130, 80, 255, 0.12)
+);
+border: 1px solid rgba(0, 220, 255, 0.35);
+}
+
+#finderV3Results .finder-v3-link:hover {
+border-color: #00eaff;
+box-shadow: 0 0 18px rgba(0, 220, 255, 0.22);
+}
+
+@media (max-width: 600px) {
+.ilink-finder {
+padding: 30px 14px;
+}
+
+.ilink-finder .finder-box {
+    gap: 4px;
+}
+
+.ilink-finder #finderButton {
+    padding: 12px 15px;
+}
+
+.ilink-finder::before {
+    font-size: 19px;
+    letter-spacing: 1px;
+}
+
+}
