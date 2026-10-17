@@ -659,7 +659,8 @@ function searchFinder(searchTerm) {
     });
 }
 
-// Connect the Find button.
+// V3 handles the main Find It button.
+// Keep V2 available for category chips and Fashion Finder.
 findButton.addEventListener("click", function () {
     searchFinder(input.value);
 });
