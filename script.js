@@ -719,61 +719,102 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function findV3Products() {
-        const term = input.value.trim();
+    const term = input.value.trim();
 
-        if (!term) {
-            results.innerHTML =
-                "<p>Please enter a product to search for.</p>";
-            input.focus();
-            return;
+    if (!term) {
+        results.innerHTML =
+            "<p>Please enter a product to search for.</p>";
+        input.focus();
+        return;
+    }
+
+    const query = encodeURIComponent(term);
+    const lowerTerm = term.toLowerCase();
+
+    let category = "general";
+
+    // Identify what the customer wants.
+    if (
+        /\b(ticket|tickets|football|soccer|premier league|manchester united|arsenal|chelsea|liverpool|man city|real madrid|barcelona)\b/i.test(lowerTerm)
+    ) {
+        category = "tickets";
+    } else if (
+        /\b(wholesale|bulk|supplier|suppliers|manufacturer|manufacturers|factory|factories)\b/i.test(lowerTerm)
+    ) {
+        category = "wholesale";
+    } else if (
+        /\b(samsung|iphone|phone|phones|smartphone|smartphones|laptop|laptops|computer|computers|tablet|tablets|headphones|earbuds|television|tv|electronics|gadget|gadgets|charger|chargers)\b/i.test(lowerTerm)
+    ) {
+        category = "electronics";
+    } else if (
+        /\b(shoes|sneakers|trainers|boots|sandals|dress|dresses|shirt|shirts|jeans|jacket|jackets|fashion|clothing|clothes|handbag|handbags|watch|watches)\b/i.test(lowerTerm)
+    ) {
+        category = "fashion";
+    } else if (
+        /\b(christmas|valentine|valentines|birthday|gift|gifts|present|presents|anniversary)\b/i.test(lowerTerm)
+    ) {
+        category = "gifts";
+    } else if (
+        /\b(deal|deals|discount|discounts|cheap|cheapest|offers|offer|sale|sales|bargain|bargains)\b/i.test(lowerTerm)
+    ) {
+        category = "deals";
+    }
+
+    const marketplaces = {
+        alibaba: {
+            name: "🇨🇳 Alibaba",
+            url: "https://www.alibaba.com/trade/search?SearchText=" + query
+        },
+        aliexpress: {
+            name: "🛍️ AliExpress",
+            url: "https://www.aliexpress.com/w/wholesale-" + query + ".html"
+        },
+        amazon: {
+            name: "🌎 Amazon",
+            url: "https://www.amazon.com/s?k=" + query
+        },
+        ebay: {
+            name: "🏷️ eBay",
+            url: "https://www.ebay.com/sch/i.html?_nkw=" + query
         }
+    };
 
-        const query = encodeURIComponent(term);
+    let selectedMarketplaces = [];
 
-        const links = [
-            {
-                name: "🇨🇳 Alibaba Wholesale",
-                url: "https://www.alibaba.com/trade/search?SearchText=" + query
-            },
-            {
-                name: "🛍️ AliExpress",
-                url: "https://www.aliexpress.com/w/wholesale-" + query + ".html"
-            },
-            {
-                name: "🌎 Amazon",
-                url: "https://www.amazon.com/s?k=" + query
-            },
-            {
-                name: "🏷️ eBay",
-                url: "https://www.ebay.com/sch/i.html?_nkw=" + query
-            }
+    if (category === "wholesale") {
+        selectedMarketplaces = [
+            marketplaces.alibaba,
+            marketplaces.aliexpress,
+            marketplaces.ebay
         ];
-
+    } else if (
+        category === "electronics" ||
+        category === "fashion" ||
+        category === "gifts" ||
+        category === "deals"
+    ) {
+        selectedMarketplaces = [
+            marketplaces.amazon,
+            marketplaces.aliexpress,
+            marketplaces.ebay,
+            marketplaces.alibaba
+        ];
+    } else if (category === "tickets") {
         results.innerHTML = `
             <div class="finder-v3-panel">
-                <h3>🌍 iLink Marketplace Results</h3>
-                <p>Search for <strong>${escapeHTML(term)}</strong>
-                on these marketplaces:</p>
-
-                <div class="finder-v3-links">
-                    ${links.map(function (item) {
-                        return `
-                            <a
-                                class="finder-v3-link"
-                                href="${item.url}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                ${item.name} →
-                            </a>
-                        `;
-                    }).join("")}
-                </div>
-
-                <small>
-                    Listings, prices, availability, delivery and purchase
-                    terms are controlled by each marketplace.
-                </small>
+                <h3>⚽ iLink Football Ticket Finder</h3>
+                <p>
+                    Search for
+                    <strong>${escapeHTML(term)}</strong>.
+                </p>
+                <p>
+                    Choose a suitable ticket provider and check
+                    match dates, ticket availability and prices.
+                </p>
+                <p>
+                    Football ticket links will be connected to
+                    verified providers in a future upgrade.
+                </p>
             </div>
         `;
 
@@ -781,7 +822,63 @@ document.addEventListener("DOMContentLoaded", function () {
             behavior: "smooth",
             block: "nearest"
         });
+
+        return;
+    } else {
+        selectedMarketplaces = [
+            marketplaces.amazon,
+            marketplaces.alibaba,
+            marketplaces.aliexpress,
+            marketplaces.ebay
+        ];
     }
+
+    results.innerHTML = `
+        <div class="finder-v3-panel">
+            <h3>🌍 iLink Marketplace Results</h3>
+
+            <p>
+                Searching for
+                <strong>${escapeHTML(term)}</strong>
+            </p>
+
+            <p>
+                Category:
+                <strong>${escapeHTML(
+                    category.charAt(0).toUpperCase() +
+                    category.slice(1)
+                )}</strong>
+            </p>
+
+            <div class="finder-v3-links">
+                ${selectedMarketplaces.map(function (item) {
+                    return `
+                        <a
+                            class="finder-v3-link"
+                            href="${item.url}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ${item.name} →
+                        </a>
+                    `;
+                }).join("")}
+            </div>
+
+            <small>
+                iLink helps you discover marketplaces.
+                Product listings, prices, availability, delivery
+                and purchase terms are controlled by each marketplace.
+            </small>
+        </div>
+    `;
+
+    results.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+    }
+        
 
     function escapeHTML(text) {
         return text.replace(/[&<>"']/g, function (character) {
