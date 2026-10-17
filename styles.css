@@ -2163,3 +2163,98 @@ padding: 30px 14px;
 }
 
 }
+/* ==========================================
+   iLINK V3 — FUTURISTIC MARKETPLACE UPGRADE
+========================================== */
+
+.marketplaces-section {
+  position: relative;
+  padding: 70px 20px;
+}
+
+.marketplace-card {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 25, 50, 0.96),
+    rgba(8, 12, 28, 0.98)
+  );
+  border: 1px solid rgba(0, 255, 255, 0.22);
+  border-radius: 20px;
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.05);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.marketplace-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 255, 255, 0.8);
+  box-shadow:
+    0 0 18px rgba(0, 255, 255, 0.12),
+    0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.marketplace-card h3 {
+  color: #ffffff;
+}
+
+.marketplace-card p {
+  color: #b8c6df;
+}
+
+.marketplace-card button {
+  position: relative;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border: 1px solid rgba(0, 255, 255, 0.55);
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.12),
+    rgba(120, 70, 255, 0.16)
+  );
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.marketplace-card button:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.25),
+    rgba(120, 70, 255, 0.3)
+  );
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.15);
+}
+
+.marketplace-card button:focus-visible {
+  outline: 2px solid #00ffff;
+  outline-offset: 4px;
+}
+
+.marketplace-card.more-marketplace {
+  border-style: dashed;
+}
+
+@media (max-width: 600px) {
+  .marketplaces-section {
+    padding: 45px 14px;
+  }
+
+  .marketplace-grid,
+  .marketplaces-grid {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(100%, 220px), 1fr)
+    );
+    gap: 15px;
+  }
+
+  .marketplace-card {
+    padding: 20px;
+  }
+     }
