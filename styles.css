@@ -2449,3 +2449,155 @@ padding: 30px 14px;
 .finder-v3-note small {
     line-height: 1.5;
    }
+/* =========================================
+   iLINK FINDER V3
+   Marketplace Results
+========================================= */
+
+.finder-v3-panel {
+    margin-top: 20px;
+    padding: 24px;
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    border-radius: 20px;
+    background: rgba(10, 15, 30, 0.92);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.08);
+}
+
+.finder-v3-heading {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.finder-v3-live {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #00ffff;
+}
+
+.finder-v3-heading h3 {
+    margin: 5px 0 8px;
+    font-size: 25px;
+}
+
+.finder-v3-heading p {
+    margin: 6px 0;
+    opacity: 0.8;
+}
+
+.finder-v3-category {
+    font-size: 14px;
+}
+
+/* Product grid */
+
+.finder-v3-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+/* Product cards */
+
+.finder-v3-product-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.finder-v3-product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 22px rgba(0, 255, 255, 0.18);
+}
+
+/* Marketplace icon */
+
+.finder-v3-card-icon {
+    min-width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: rgba(0, 255, 255, 0.08);
+    font-size: 25px;
+}
+
+/* Card content */
+
+.finder-v3-card-content {
+    flex: 1;
+}
+
+.finder-v3-card-content h4 {
+    margin: 0 0 7px;
+    font-size: 18px;
+}
+
+.finder-v3-card-content p {
+    margin: 0 0 12px;
+    font-size: 13px;
+    opacity: 0.75;
+}
+
+/* View Products */
+
+.finder-v3-link {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: #001014;
+    background: #00ffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.finder-v3-link:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.45);
+}
+
+/* Disclaimer */
+
+.finder-v3-note {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0.7;
+}
+
+.finder-v3-note small {
+    line-height: 1.5;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .finder-v3-panel {
+        padding: 16px;
+    }
+
+    .finder-v3-product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .finder-v3-heading h3 {
+        font-size: 21px;
+    }
+
+    .finder-v3-product-card {
+        padding: 15px;
+    }
+}
