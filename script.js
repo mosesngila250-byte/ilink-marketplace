@@ -834,44 +834,77 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     results.innerHTML = `
-        <div class="finder-v3-panel">
+    <div class="finder-v3-panel">
+
+        <div class="finder-v3-heading">
+            <span class="finder-v3-live">● LIVE SEARCH</span>
             <h3>🌍 iLink Marketplace Results</h3>
 
             <p>
-                Searching for
+                Results for
                 <strong>${escapeHTML(term)}</strong>
             </p>
 
-            <p>
+            <p class="finder-v3-category">
                 Category:
-                <strong>${escapeHTML(
-                    category.charAt(0).toUpperCase() +
-                    category.slice(1)
-                )}</strong>
+                <strong>
+                    ${escapeHTML(
+                        category.charAt(0).toUpperCase() +
+                        category.slice(1)
+                    )}
+                </strong>
             </p>
+        </div>
 
-            <div class="finder-v3-links">
-                ${selectedMarketplaces.map(function (item) {
-                    return `
-                        <a
-                            class="finder-v3-link"
-                            href="${item.url}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            ${item.name} →
-                        </a>
-                    `;
-                }).join("")}
-            </div>
+        <div class="finder-v3-product-grid">
 
+            ${selectedMarketplaces.map(function (item) {
+                return `
+                    <div class="finder-v3-product-card">
+
+                        <div class="finder-v3-card-icon">
+                            ${item.name.split(" ")[0]}
+                        </div>
+
+                        <div class="finder-v3-card-content">
+                            <h4>
+                                ${escapeHTML(
+                                    item.name.replace(/^[^\w]+/, "")
+                                )}
+                            </h4>
+
+                            <p>
+                                Search for
+                                <strong>${escapeHTML(term)}</strong>
+                            </p>
+
+                            <a
+                                class="finder-v3-link"
+                                href="${item.url}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                View Products →
+                            </a>
+                        </div>
+
+                    </div>
+                `;
+            }).join("")}
+
+        </div>
+
+        <div class="finder-v3-note">
+            <span>ℹ️</span>
             <small>
-                iLink helps you discover marketplaces.
-                Product listings, prices, availability, delivery
-                and purchase terms are controlled by each marketplace.
+                iLink helps you discover products across marketplaces.
+                Listings, prices, availability, delivery and purchase
+                terms are controlled by each marketplace.
             </small>
         </div>
-    `;
+
+    </div>
+`;
 
     results.scrollIntoView({
         behavior: "smooth",
