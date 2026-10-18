@@ -2365,3 +2365,87 @@ padding: 30px 14px;
         min-height: 50px;
     }
    }
+/* ==========================================
+   iLINK FINDER V3.2 - PRODUCT CARDS
+   ========================================== */
+
+.finder-v3-heading {
+    position: relative;
+    z-index: 1;
+}
+
+.finder-v3-live {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #00ffff;
+}
+
+.finder-v3-product-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+    );
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.finder-v3-product-card {
+    position: relative;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.035);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.finder-v3-product-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 255, 255, 0.45);
+    box-shadow: 0 0 22px rgba(0, 255, 255, 0.12);
+}
+
+.finder-v3-card-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.finder-v3-card-content h4 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.finder-v3-card-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.finder-v3-card-content .finder-v3-link {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.finder-v3-note {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(0, 255, 255, 0.04);
+}
+
+.finder-v3-note span {
+    flex-shrink: 0;
+}
+
+.finder-v3-note small {
+    line-height: 1.5;
+   }
