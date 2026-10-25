@@ -838,7 +838,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div class="finder-v3-heading">
             <span class="finder-v3-live">● LIVE SEARCH</span>
-            <h3>🌍 iLink Marketplace Results</h3>
+            <h3>⚡ iLink FLIP</h3>
+<p>One search. Multiple marketplaces. Your choice.</p>
 
             <p>
                 Results for
