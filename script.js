@@ -837,12 +837,14 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="finder-v3-panel">
 
         <div class="finder-v3-heading">
-            <span class="finder-v3-live">● LIVE SEARCH</span>
+            <span class="finder-v3-live">● MARKETPLACE SEARCH</span>
+
             <h3>⚡ iLink FLIP</h3>
-<p>One search. Multiple marketplaces. Your choice.</p>
+
+            <p>One search. Multiple marketplaces. Your choice.</p>
 
             <p>
-                Results for
+                Comparing marketplaces for:
                 <strong>${escapeHTML(term)}</strong>
             </p>
 
@@ -860,23 +862,20 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="finder-v3-product-grid">
 
             ${selectedMarketplaces.map(function (item) {
+                const marketplaceName =
+                    item.name.replace(/^[^\w]+/, "");
+
                 return `
                     <div class="finder-v3-product-card">
 
-                        <div class="finder-v3-card-icon">
-                            ${item.name.split(" ")[0]}
-                        </div>
-
                         <div class="finder-v3-card-content">
-                            <h4>
-                                ${escapeHTML(
-                                    item.name.replace(/^[^\w]+/, "")
-                                )}
-                            </h4>
+
+                            <h4>${escapeHTML(marketplaceName)}</h4>
 
                             <p>
                                 Search for
                                 <strong>${escapeHTML(term)}</strong>
+                                on ${escapeHTML(marketplaceName)}.
                             </p>
 
                             <a
@@ -885,8 +884,9 @@ document.addEventListener("DOMContentLoaded", function () {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                View Products →
+                                Compare on ${escapeHTML(marketplaceName)} →
                             </a>
+
                         </div>
 
                     </div>
@@ -898,15 +898,15 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="finder-v3-note">
             <span>ℹ️</span>
             <small>
-                iLink helps you discover products across marketplaces.
-                Listings, prices, availability, delivery and purchase
-                terms are controlled by each marketplace.
+                Compare available listings, prices, shipping and product
+                details on each marketplace before buying. Prices and
+                availability may differ. iLink does not yet display
+                verified live prices side by side.
             </small>
         </div>
 
     </div>
 `;
-
     results.scrollIntoView({
         behavior: "smooth",
         block: "nearest"
