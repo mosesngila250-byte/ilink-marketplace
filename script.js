@@ -832,19 +832,21 @@ document.addEventListener("DOMContentLoaded", function () {
             marketplaces.ebay
         ];
     }
-
     results.innerHTML = `
     <div class="finder-v3-panel">
 
         <div class="finder-v3-heading">
-            <span class="finder-v3-live">● MARKETPLACE SEARCH</span>
+            <span class="finder-v3-live">● iLINK FLIP</span>
 
-            <h3>⚡ iLink FLIP</h3>
-
-            <p>One search. Multiple marketplaces. Your choice.</p>
+            <h3>⚡ Compare Your Options</h3>
 
             <p>
-                Comparing marketplaces for:
+                One search. Multiple marketplaces.
+                Find the option that works for you.
+            </p>
+
+            <p>
+                Searching for:
                 <strong>${escapeHTML(term)}</strong>
             </p>
 
@@ -862,6 +864,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="finder-v3-product-grid">
 
             ${selectedMarketplaces.map(function (item) {
+
                 const marketplaceName =
                     item.name.replace(/^[^\w]+/, "");
 
@@ -870,13 +873,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         <div class="finder-v3-card-content">
 
+                            <div class="finder-v3-flip-badge">
+                                FLIP OPTION
+                            </div>
+
                             <h4>${escapeHTML(marketplaceName)}</h4>
 
                             <p>
-                                Search for
+                                Explore
                                 <strong>${escapeHTML(term)}</strong>
                                 on ${escapeHTML(marketplaceName)}.
                             </p>
+
+                            <div class="finder-v3-comparison-info">
+
+                                <span>💰 Price</span>
+                                <span>🚚 Shipping</span>
+                                <span>📦 Availability</span>
+
+                            </div>
 
                             <a
                                 class="finder-v3-link"
@@ -884,28 +899,33 @@ document.addEventListener("DOMContentLoaded", function () {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Compare on ${escapeHTML(marketplaceName)} →
+                                View ${escapeHTML(marketplaceName)} →
                             </a>
 
                         </div>
 
                     </div>
                 `;
+
             }).join("")}
 
         </div>
 
         <div class="finder-v3-note">
-            <span>ℹ️</span>
+
+            <span>⚡</span>
+
             <small>
-                Compare available listings, prices, shipping and product
-                details on each marketplace before buying. Prices and
-                availability may differ. iLink does not yet display
-                verified live prices side by side.
+                iLink FLIP helps you discover and compare
+                options across marketplaces. Prices,
+                shipping and availability are checked on
+                the marketplace before buying.
             </small>
+
         </div>
 
     </div>
+`;
 `;
     results.scrollIntoView({
         behavior: "smooth",
