@@ -842,7 +842,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <p>
                 One search. Multiple marketplaces.
-                Find the option that works for you.
+                Find the option that works best for you.
             </p>
 
             <p>
@@ -863,33 +863,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div class="finder-v3-product-grid">
 
-            ${selectedMarketplaces.map(function (item) {
+            ${selectedMarketplaces.map(function (item, index) {
 
                 const marketplaceName =
                     item.name.replace(/^[^\w]+/, "");
 
+                const isBestValue = index === 0;
+
                 return `
                     <div class="finder-v3-product-card">
+
+                        ${isBestValue ? `
+                            <div class="finder-v3-best-value">
+                                🏆 BEST VALUE
+                            </div>
+                        ` : ""}
 
                         <div class="finder-v3-card-content">
 
                             <div class="finder-v3-flip-badge">
-                                FLIP OPTION
+                                ⚡ FLIP OPTION
                             </div>
 
-                            <h4>${escapeHTML(marketplaceName)}</h4>
+                            <h4>
+                                ${escapeHTML(marketplaceName)}
+                            </h4>
 
                             <p>
-                                Explore
+                                Find
                                 <strong>${escapeHTML(term)}</strong>
                                 on ${escapeHTML(marketplaceName)}.
                             </p>
 
                             <div class="finder-v3-comparison-info">
 
-                                <span>💰 Price</span>
-                                <span>🚚 Shipping</span>
-                                <span>📦 Availability</span>
+                                <div>
+                                    <span>💰</span>
+                                    <strong>Price</strong>
+                                    <small>Check live price</small>
+                                </div>
+
+                                <div>
+                                    <span>🚚</span>
+                                    <strong>Shipping</strong>
+                                    <small>Check delivery</small>
+                                </div>
+
+                                <div>
+                                    <span>📦</span>
+                                    <strong>Availability</strong>
+                                    <small>Check stock</small>
+                                </div>
 
                             </div>
 
@@ -899,13 +923,33 @@ document.addEventListener("DOMContentLoaded", function () {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                View ${escapeHTML(marketplaceName)} →
+                                View Deal →
                             </a>
 
                         </div>
 
                     </div>
                 `;
+
+            }).join("")}
+
+        </div>
+
+        <div class="finder-v3-note">
+
+            <span>⚡</span>
+
+            <small>
+                iLink FLIP compares your options across
+                marketplaces. Always check the marketplace
+                for the latest price, shipping and availability
+                before buying.
+            </small>
+
+        </div>
+
+    </div>
+`;
 
             }).join("")}
 
