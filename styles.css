@@ -2601,3 +2601,88 @@ padding: 30px 14px;
         padding: 15px;
     }
 }
+/* =================================
+   iLINK FLIP 2.0
+   FUTURISTIC COMPARISON CARDS
+================================= */
+
+.finder-v3-product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 25px;
+}
+
+.finder-v3-product-card {
+    background: linear-gradient(
+        145deg,
+        #101a30,
+        #080d1b
+    );
+    border: 1px solid rgba(0, 255, 220, 0.25);
+    border-radius: 16px;
+    padding: 18px;
+    transition: 0.3s ease;
+}
+
+.finder-v3-product-card:hover {
+    transform: translateY(-5px);
+    border-color: #00ffe0;
+    box-shadow: 0 0 20px rgba(0,255,220,0.15);
+}
+
+.finder-v3-flip-badge {
+    display: inline-block;
+    color: #00ffe0;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.finder-v3-product-card h4 {
+    color: white;
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+.finder-v3-product-card p {
+    color: #aab7ca;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.finder-v3-comparison-info {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: #c8d5e8;
+    font-size: 12px;
+    margin: 18px 0;
+}
+
+.finder-v3-link {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(90deg, #00e5cc, #00aaff);
+    color: #06111c;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 9px;
+}
+
+.finder-v3-note {
+    margin-top: 22px;
+    padding: 15px;
+    border: 1px solid rgba(0,255,220,0.2);
+    border-radius: 12px;
+    color: #aab7ca;
+    line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+    .finder-v3-product-grid {
+        grid-template-columns: 1fr;
+    }
+}
