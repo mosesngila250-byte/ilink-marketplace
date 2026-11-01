@@ -2686,3 +2686,116 @@ padding: 30px 14px;
         grid-template-columns: 1fr;
     }
 }
+/* =====================================================
+   iLINK FLIP — UPGRADED COMPARISON CARDS
+===================================================== */
+
+.finder-v3-product-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.finder-v3-product-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.finder-v3-best-value {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+}
+
+.finder-v3-flip-badge {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 9px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.finder-v3-product-card h4 {
+    margin: 5px 0 10px;
+    font-size: 20px;
+}
+
+.finder-v3-comparison-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 18px 0;
+}
+
+.finder-v3-comparison-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.finder-v3-comparison-info span {
+    font-size: 18px;
+}
+
+.finder-v3-comparison-info strong {
+    font-size: 12px;
+}
+
+.finder-v3-comparison-info small {
+    font-size: 10px;
+    opacity: 0.65;
+}
+
+.finder-v3-link {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.10);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.finder-v3-link:hover {
+    transform: scale(1.02);
+    opacity: 0.85;
+}
+
+.finder-v3-note {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.finder-v3-note small {
+    line-height: 1.5;
+    opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+
+    .finder-v3-comparison-info {
+        grid-template-columns: 1fr;
+    }
+
+}
