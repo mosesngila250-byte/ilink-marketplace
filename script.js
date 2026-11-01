@@ -926,7 +926,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     </div>
 `;
-`;
     results.scrollIntoView({
         behavior: "smooth",
         block: "nearest"
