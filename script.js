@@ -890,44 +890,167 @@ document.addEventListener("DOMContentLoaded", function () {
                                     Explore Marketplace →
                                 </a>
 
-                            </div>
-                        `;
+else {
+    selectedMarketplaces = [
+        marketplaces.amazon,
+        marketplaces.alibaba,
+        marketplaces.aliexpress,
+        marketplaces.ebay
+    ];
+}
 
-                    }).join("")}
+/* =====================================================
+   iLINK FLIP V5
+   Smart marketplace comparison
+===================================================== */
 
-                </div>
+function getFlipURL(marketplace, term) {
 
-                <div class="finder-v3-note">
-                    ⚡ iLink FLIP helps you discover products
-                    across marketplaces. Check actual prices,
-                    delivery costs and availability before buying.
-                </div>
+    const searchTerm = encodeURIComponent(term);
 
-            </div>
-        `;
+    const name = String(marketplace.name || "").toLowerCase();
 
-        results.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-        });
+    if (name.includes("amazon")) {
+        return "https://www.amazon.com/s?k=" + searchTerm;
     }
 
-    button.addEventListener("click", function (event) {
+    if (name.includes("alibaba")) {
+        return "https://www.alibaba.com/trade/search?SearchText=" + searchTerm;
+    }
+
+    if (name.includes("aliexpress")) {
+        return "https://www.aliexpress.com/w/wholesale-" +
+               searchTerm.replace(/%20/g, "-") + ".html";
+    }
+
+    if (name.includes("ebay")) {
+        return "https://www.ebay.com/sch/i.html?_nkw=" + searchTerm;
+    }
+
+    return marketplace.url;
+}
+
+
+results.innerHTML = `
+    <div class="finder-v3-panel">
+
+        <div class="finder-v3-heading">
+
+            <span class="finder-v3-live">
+                ● iLINK FLIP V5
+            </span>
+
+            <h3>⚡ Smart Marketplace Comparison</h3>
+
+            <p>
+                One search. Multiple marketplaces. More choices.
+            </p>
+
+            <p>
+                Searching for:
+                <strong>${escapeHTML(term)}</strong>
+            </p>
+
+            <p>
+                Category:
+                <strong>${escapeHTML(category.toUpperCase())}</strong>
+            </p>
+
+        </div>
+
+        <div class="finder-v3-product-grid">
+
+            ${selectedMarketplaces.map(function (item) {
+
+                const flipURL = getFlipURL(item, term);
+
+                return `
+                    <div class="finder-v3-product-card">
+
+                        <div class="finder-v3-flip-badge">
+                            ⚡ FLIP OPTION
+                        </div>
+
+                        <h4>
+                            ${item.icon}
+                            ${escapeHTML(item.name)}
+                        </h4>
+
+                        <p>
+                            Search for
+                            <strong>${escapeHTML(term)}</strong>
+                            on ${escapeHTML(item.name)}.
+                        </p>
+
+                        <div class="finder-v3-comparison-info">
+
+                            <div>
+                                <span>💰</span>
+                                <strong>Price</strong>
+                                <small>Compare current prices</small>
+                            </div>
+
+                            <div>
+                                <span>🚚</span>
+                                <strong>Shipping</strong>
+                                <small>Check delivery options</small>
+                            </div>
+
+                            <div>
+                                <span>📦</span>
+                                <strong>Stock</strong>
+                                <small>Check availability</small>
+                            </div>
+
+                        </div>
+
+                        <a
+                            class="finder-v3-link"
+                            href="${flipURL}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            🔎 View ${escapeHTML(item.name)} →
+                        </a>
+
+                    </div>
+                `;
+
+            }).join("")}
+
+        </div>
+
+        <div class="finder-v3-note">
+            ⚡ <strong>iLink FLIP</strong> helps you discover
+            and compare products across multiple marketplaces.
+            Prices, shipping and availability may vary by marketplace.
+        </div>
+
+    </div>
+`;
+
+results.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+});
+
+
+button.addEventListener("click", function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    findV4Products();
+}, true);
+
+
+input.addEventListener("keydown", function (event) {
+
+    if (event.key === "Enter") {
         event.preventDefault();
         event.stopImmediatePropagation();
         findV4Products();
-    }, true);
+    }
 
-    input.addEventListener("keydown", function (event) {
+}, true);
 
-        if (event.key === "Enter") {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            findV4Products();
-        }
 
-    }, true);
-
-    console.log("iLink Finder V4 successfully connected.");
-
-});
+console.log("iLink Finder V5 successfully connected.");
