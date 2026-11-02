@@ -899,3 +899,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
                 
+alert("iLink FLIP V5 is loaded!");
