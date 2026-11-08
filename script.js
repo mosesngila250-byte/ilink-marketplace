@@ -1100,10 +1100,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
         
 
-    }, true);
-
-    console.log("iLink FLIP V5 successfully connected.");
-
-});
-                
-alert("iLink FLIP V5 is loaded!");
+    
