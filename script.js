@@ -694,9 +694,9 @@ window.selectFashion = function (category) {
 console.log("iLink Finder V2 is ready.");
 });
 
-
 /* ==========================================
-   iLINK FLIP V5 — CLEAN COMPARISON ENGINE
+   iLINK FLIP V6
+   SMART AFFILIATE ENGINE
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -706,7 +706,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const oldResults = document.getElementById("finderResults");
 
     if (!input || !button || !oldResults) {
-        console.error("iLink FLIP: Required elements missing.");
+        console.error("iLink FLIP V6: Finder elements missing.");
         return;
     }
 
@@ -718,8 +718,70 @@ document.addEventListener("DOMContentLoaded", function () {
         oldResults.insertAdjacentElement("afterend", results);
     }
 
+    /* ==================================
+       AFFILIATE CONFIGURATION
+    ================================== */
+
+    const affiliateConfig = {
+
+        amazon: "",
+        alibaba: "",
+        aliexpress: "",
+        ebay: ""
+
+    };
+
+    /*
+       Add your actual affiliate tracking
+       URLs here after joining each program.
+
+       Leave empty until approved.
+    */
+
+    /* ==================================
+       MARKETPLACES
+    ================================== */
+
+    const marketplaces = [
+
+        {
+            id: "amazon",
+            name: "Amazon",
+            icon: "🌎",
+            base: "https://www.amazon.com/s?k="
+        },
+
+        {
+            id: "alibaba",
+            name: "Alibaba",
+            icon: "🇨🇳",
+            base: "https://www.alibaba.com/trade/search?SearchText="
+        },
+
+        {
+            id: "aliexpress",
+            name: "AliExpress",
+            icon: "🛍️",
+            base: "https://www.aliexpress.com/w/wholesale-"
+        },
+
+        {
+            id: "ebay",
+            name: "eBay",
+            icon: "🏷️",
+            base: "https://www.ebay.com/sch/i.html?_nkw="
+        }
+
+    ];
+
+    /* ==================================
+       SAFE HTML
+    ================================== */
+
     function escapeHTML(value) {
+
         return String(value).replace(/[&<>"']/g, function (char) {
+
             return {
                 "&": "&amp;",
                 "<": "&lt;",
@@ -727,52 +789,137 @@ document.addEventListener("DOMContentLoaded", function () {
                 '"': "&quot;",
                 "'": "&#39;"
             }[char];
+
         });
+
     }
+
+    /* ==================================
+       SEARCH URL
+    ================================== */
+
+    function getSearchUrl(market, term) {
+
+        const query = encodeURIComponent(term);
+
+        switch (market.id) {
+
+            case "amazon":
+            case "ebay":
+            case "alibaba":
+
+                return market.base + query;
+
+            case "aliexpress":
+
+                return market.base +
+                    term.trim().replace(/\s+/g, "-") + ".html";
+
+            default:
+
+                return "#";
+
+        }
+
+    }
+
+    /* ==================================
+       CLICK TRACKING
+    ================================== */
+
+    function recordClick(market, term) {
+
+        try {
+
+            const history = JSON.parse(
+                localStorage.getItem("ilinkFlipClicks") || "[]"
+            );
+
+            history.push({
+
+                marketplace: market,
+                search: term,
+                date: new Date().toISOString()
+
+            });
+
+            localStorage.setItem(
+                "ilinkFlipClicks",
+                JSON.stringify(history.slice(-100))
+            );
+
+        } catch (error) {
+
+            console.warn("iLink click tracking unavailable.");
+
+        }
+
+    }
+
+    /* ==================================
+       SEARCH HISTORY
+    ================================== */
+
+    function saveSearch(term) {
+
+        try {
+
+            let history = JSON.parse(
+                localStorage.getItem("ilinkFlipSearches") || "[]"
+            );
+
+            history = history.filter(
+                item => item !== term
+            );
+
+            history.unshift(term);
+
+            localStorage.setItem(
+                "ilinkFlipSearches",
+                JSON.stringify(history.slice(0, 10))
+            );
+
+        } catch (error) {
+
+            console.warn("Search history unavailable.");
+
+        }
+
+    }
+
+    /* ==================================
+       SMART FLIP SEARCH
+    ================================== */
 
     function findProducts() {
 
         const term = input.value.trim();
 
         if (!term) {
-            results.innerHTML = "<p>Please enter a product to search.</p>";
+
+            results.innerHTML = `
+                <div class="finder-v3-panel">
+                    <h3>🔎 Start your search</h3>
+                    <p>Enter a product name to compare marketplaces.</p>
+                </div>
+            `;
+
             return;
+
         }
 
-        const query = encodeURIComponent(term);
+        const safeTerm = escapeHTML(term);
 
-        const marketplaces = [
-            {
-                name: "Amazon",
-                icon: "🌎",
-                url: "https://www.amazon.com/s?k=" + query
-            },
-            {
-                name: "Alibaba",
-                icon: "🇨🇳",
-                url: "https://www.alibaba.com/trade/search?SearchText=" + query
-            },
-            {
-                name: "AliExpress",
-                icon: "🛍️",
-                url: "https://www.aliexpress.com/w/wholesale-" +
-                     query.replace(/%20/g, "-") + ".html"
-            },
-            {
-                name: "eBay",
-                icon: "🏷️",
-                url: "https://www.ebay.com/sch/i.html?_nkw=" + query
-            }
-        ];
+        saveSearch(term);
 
-        const isTicket = /\b(ticket|tickets|football|soccer)\b/i.test(term);
+        /* Football tickets */
 
-        if (isTicket) {
+        if (/\b(ticket|tickets|football|soccer)\b/i.test(term)) {
 
             results.innerHTML = `
                 <div class="finder-v3-panel">
                     <h3>⚽ iLink Football Finder</h3>
-                    <p>Searching for: ${escapeHTML(term)}</p>
+                    <p>Searching for: ${safeTerm}</p>
                     <p>Football ticket partners will appear here once connected.</p>
                 </div>
             `;
@@ -783,22 +930,31 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             return;
+
         }
 
+        /* Marketplace comparison */
+
         results.innerHTML = `
+
             <div class="finder-v3-panel">
 
                 <div class="finder-v3-heading">
 
-                    <span class="finder-v3-live">● iLINK FLIP V5</span>
+                    <span class="finder-v3-live">
+                        ● iLINK FLIP V6
+                    </span>
 
-                    <h3>⚡ Smart Marketplace Comparison</h3>
+                    <h3>⚡ Smart Global Comparison</h3>
 
-                    <p>One search. Multiple marketplaces. More choices.</p>
+                    <p>
+                        One search. Four marketplaces.
+                        More opportunities.
+                    </p>
 
                     <p>
                         Searching for:
-                        <strong>${escapeHTML(term)}</strong>
+                        <strong>${safeTerm}</strong>
                     </p>
 
                 </div>
@@ -807,7 +963,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     ${marketplaces.map(function (item) {
 
+                        const searchUrl = getSearchUrl(item, term);
+
                         return `
+
                             <div class="finder-v3-product-card">
 
                                 <div class="finder-v3-flip-badge">
@@ -820,7 +979,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </h4>
 
                                 <p>
-                                    Explore ${escapeHTML(term)}
+                                    Discover ${safeTerm}
                                     on ${item.name}.
                                 </p>
 
@@ -848,14 +1007,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                 <a
                                     class="finder-v3-link"
-                                    href="${item.url}"
+                                    href="${searchUrl}"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    data-market="${item.id}"
                                 >
                                     🔎 View ${item.name} →
                                 </a>
 
                             </div>
+
                         `;
 
                     }).join("")}
@@ -863,35 +1024,81 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
 
                 <div class="finder-v3-note">
-                    ⚡ iLink FLIP helps you discover products
-                    across marketplaces. Check actual prices,
-                    shipping and availability before buying.
+
+                    ⚡ iLink FLIP V6 helps you discover
+                    products across global marketplaces.
+
+                    Compare actual prices, shipping and
+                    availability before purchasing.
+
                 </div>
 
             </div>
+
         `;
 
+        /* Track marketplace clicks */
+
+        results.querySelectorAll("[data-market]").forEach(
+            function (link) {
+
+                link.addEventListener("click", function () {
+
+                    recordClick(
+                        link.dataset.market,
+                        term
+                    );
+
+                });
+
+            }
+        );
+
         results.scrollIntoView({
+
             behavior: "smooth",
             block: "nearest"
+
         });
+
     }
 
-    // Replace older Find It click handlers.
+    /* ==================================
+       FIND IT BUTTON
+    ================================== */
+
     button.addEventListener("click", function (event) {
+
         event.preventDefault();
         event.stopImmediatePropagation();
+
         findProducts();
+
     }, true);
 
-    // Replace older Enter-key search handlers.
+    /* ==================================
+       ENTER KEY
+    ================================== */
+
     input.addEventListener("keydown", function (event) {
 
         if (event.key === "Enter") {
+
             event.preventDefault();
             event.stopImmediatePropagation();
+
             findProducts();
+
         }
+
+    }, true);
+
+    console.log("🚀 iLink FLIP V6 loaded successfully.");
+
+});
+
+
+        
 
     }, true);
 
