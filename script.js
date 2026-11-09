@@ -525,32 +525,30 @@ console.log(
 /* =====================================================
    END OF iLINK V1 SCRIPT
 ===================================================== */
-  
-
-/* =====================================================
-   iLINK INTELLIGENCE V7
-   SMART DISCOVERY + FLIP ENGINE
+ /* =====================================================
+   iLINK FLIP V8
+   SMART PRICE HUNTER
+   Product Discovery + Price Comparison
 ===================================================== */
 
 (function () {
 
-    function initIlinkV7() {
+    function initFlipV8() {
 
         const input = document.getElementById("finderInput");
         const button = document.getElementById("finderButton");
         const results = document.getElementById("finderResults");
 
         if (!input || !button || !results) {
-            console.error("iLink V7: Finder HTML elements missing.");
+            console.error("iLink V8: Finder elements missing.");
             return;
         }
 
-        console.log("🚀 iLink Intelligence V7 starting...");
+        /* =====================================
+           CONFIGURATION
+        ===================================== */
 
-
-        /* ==========================================
-           MARKETPLACE CONFIGURATION
-        ========================================== */
+        const API_URL = "/api/products/search";
 
         const marketplaces = [
 
@@ -558,186 +556,120 @@ console.log(
                 id: "amazon",
                 name: "Amazon",
                 icon: "🌎",
-                buildURL: function (term) {
-                    return "https://www.amazon.com/s?k=" +
-                        encodeURIComponent(term);
-                }
+                url: term =>
+                    "https://www.amazon.com/s?k=" +
+                    encodeURIComponent(term)
             },
 
             {
                 id: "alibaba",
                 name: "Alibaba",
                 icon: "🇨🇳",
-                buildURL: function (term) {
-                    return "https://www.alibaba.com/trade/search?SearchText=" +
-                        encodeURIComponent(term);
-                }
+                url: term =>
+                    "https://www.alibaba.com/trade/search?SearchText=" +
+                    encodeURIComponent(term)
             },
 
             {
                 id: "aliexpress",
                 name: "AliExpress",
                 icon: "🛍️",
-                buildURL: function (term) {
-                    return "https://www.aliexpress.com/w/wholesale-" +
-                        encodeURIComponent(term) + ".html";
-                }
+                url: term =>
+                    "https://www.aliexpress.com/w/wholesale-" +
+                    encodeURIComponent(term) + ".html"
             },
 
             {
                 id: "ebay",
                 name: "eBay",
                 icon: "🏷️",
-                buildURL: function (term) {
-                    return "https://www.ebay.com/sch/i.html?_nkw=" +
-                        encodeURIComponent(term);
-                }
+                url: term =>
+                    "https://www.ebay.com/sch/i.html?_nkw=" +
+                    encodeURIComponent(term)
             }
 
         ];
 
 
-        /* ==========================================
-           INTELLIGENT CATEGORY RECOGNITION
-        ========================================== */
+        /* =====================================
+           CATEGORY INTELLIGENCE
+        ===================================== */
 
         const categories = [
 
             {
-                name: "Football Tickets",
-                icon: "⚽",
-                pattern: /\bticket(s)?\b|football|soccer|premier league|champions league|la liga|serie a|bundesliga|arsenal|chelsea|liverpool|barcelona|real madrid|manchester united/i,
-                description: "Discover football ticket opportunities.",
-                type: "tickets"
-            },
-
-            {
                 name: "Fashion",
                 icon: "👗",
-                pattern: /fashion|clothes|clothing|dress|dresses|shoes|sneakers|shirt|shirts|jacket|trousers|jeans|handbag|bags|watch|accessories/i,
-                description: "Discover fashion, clothing, shoes and accessories.",
-                type: "fashion"
+                pattern: /fashion|clothes|dress|shoes|sneakers|shirt|jeans|bags|jacket/i
             },
 
             {
                 name: "Electronics",
                 icon: "📱",
-                pattern: /phone|iphone|samsung|laptop|computer|tablet|headphones|earphones|electronics|smartwatch|gadget|camera|charger|speaker/i,
-                description: "Discover electronic products and gadgets.",
-                type: "electronics"
+                pattern: /phone|iphone|samsung|laptop|computer|headphones|tablet|camera|watch|gadget/i
             },
 
             {
                 name: "Gifts",
                 icon: "🎁",
-                pattern: /gift|gifts|christmas|birthday|valentine|present|toys|anniversary/i,
-                description: "Discover gifts for every occasion.",
-                type: "gifts"
+                pattern: /gift|christmas|birthday|valentine|present|toys/i
             },
 
             {
                 name: "China Products",
                 icon: "🇨🇳",
-                pattern: /china|chinese|alibaba|aliexpress|1688|wholesale|manufacturer|supplier/i,
-                description: "Discover products from Chinese marketplaces.",
-                type: "china"
+                pattern: /china|chinese|alibaba|aliexpress|wholesale|supplier/i
             },
 
             {
                 name: "Deals",
                 icon: "🔥",
-                pattern: /deal|deals|discount|cheap|offer|offers|sale|bargain/i,
-                description: "Discover marketplace deals and offers.",
-                type: "deals"
+                pattern: /deal|discount|cheap|sale|offer|bargain/i
             }
 
         ];
 
 
-        /* ==========================================
-           SAFE HTML
-        ========================================== */
+        /* =====================================
+           SECURITY
+        ===================================== */
 
         function escapeHTML(value) {
 
-            return String(value).replace(/[&<>"']/g, function (char) {
+            return String(value).replace(/[&<>"']/g, char => ({
 
-                return {
-                    "&": "&amp;",
-                    "<": "&lt;",
-                    ">": "&gt;",
-                    '"': "&quot;",
-                    "'": "&#39;"
-                }[char];
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
 
-            });
+            })[char]);
 
         }
 
 
-        /* ==========================================
-           CATEGORY INTELLIGENCE
-        ========================================== */
+        /* =====================================
+           CATEGORY RECOGNITION
+        ===================================== */
 
         function recognizeCategory(term) {
 
-            return categories.find(function (category) {
-
-                return category.pattern.test(term);
-
-            }) || {
+            return categories.find(category =>
+                category.pattern.test(term)
+            ) || {
 
                 name: "Global Products",
-                icon: "🌍",
-                description: "Explore products across global marketplaces.",
-                type: "general"
+                icon: "🌍"
 
             };
 
         }
 
 
-        /* ==========================================
-           SMART MARKETPLACE MATCHING
-        ========================================== */
-
-        function matchMarketplaces(category) {
-
-            switch (category.type) {
-
-                case "china":
-
-                    return marketplaces.filter(function (market) {
-
-                        return market.id === "alibaba" ||
-                               market.id === "aliexpress";
-
-                    });
-
-                case "fashion":
-
-                case "electronics":
-
-                case "gifts":
-
-                case "deals":
-
-                case "general":
-
-                    return marketplaces;
-
-                default:
-
-                    return [];
-
-            }
-
-        }
-
-
-        /* ==========================================
+        /* =====================================
            SEARCH MEMORY
-        ========================================== */
+        ===================================== */
 
         function saveSearch(term) {
 
@@ -747,15 +679,9 @@ console.log(
                     localStorage.getItem("ilinkFlipSearches") || "[]"
                 );
 
-                if (!Array.isArray(history)) {
-                    history = [];
-                }
+                if (!Array.isArray(history)) history = [];
 
-                history = history.filter(function (item) {
-
-                    return item !== term;
-
-                });
+                history = history.filter(item => item !== term);
 
                 history.unshift(term);
 
@@ -766,120 +692,70 @@ console.log(
 
             } catch (error) {
 
-                console.warn("iLink search memory unavailable.");
+                console.warn("Search memory unavailable.");
 
             }
 
         }
 
 
-        /* ==========================================
-           CLICK ANALYTICS
-        ========================================== */
+        /* =====================================
+           PRICE FORMATTING
+        ===================================== */
 
-        function recordClick(marketplace, term) {
+        function formatPrice(price, currency) {
 
-            try {
+            return new Intl.NumberFormat("en-US", {
 
-                let history = JSON.parse(
-                    localStorage.getItem("ilinkFlipClicks") || "[]"
-                );
+                style: "currency",
+                currency: currency || "USD"
 
-                if (!Array.isArray(history)) {
-                    history = [];
-                }
-
-                history.push({
-
-                    marketplace: marketplace,
-                    search: term,
-                    date: new Date().toISOString()
-
-                });
-
-                localStorage.setItem(
-                    "ilinkFlipClicks",
-                    JSON.stringify(history.slice(-100))
-                );
-
-            } catch (error) {
-
-                console.warn("iLink click tracking unavailable.");
-
-            }
+            }).format(price);
 
         }
 
 
-        /* ==========================================
-           FOOTBALL INTELLIGENCE
-        ========================================== */
+        /* =====================================
+           CALCULATE TOTAL COST
+        ===================================== */
 
-        function showFootballResults(term) {
+        function calculateTotal(product) {
 
-            const safeTerm = escapeHTML(term);
-
-            results.innerHTML = `
-
-                <div class="finder-v3-panel">
-
-                    <div class="finder-v3-heading">
-
-                        <span class="finder-v3-live">
-                            ● iLINK FOOTBALL INTELLIGENCE
-                        </span>
-
-                        <h3>⚽ Football Ticket Finder</h3>
-
-                        <p>
-                            Searching for:
-                            <strong>${safeTerm}</strong>
-                        </p>
-
-                    </div>
-
-                    <div class="finder-v3-note">
-
-                        Football ticket discovery is ready.
-
-                        Verified ticket partners and
-                        affiliate links will be connected
-                        in a future upgrade.
-
-                    </div>
-
-                </div>
-
-            `;
+            return Number(product.price) +
+                   Number(product.shipping || 0);
 
         }
 
 
-        /* ==========================================
-           SMART DISCOVERY ENGINE
-        ========================================== */
+        /* =====================================
+           DISPLAY PRODUCT RESULTS
+        ===================================== */
 
-        function searchFinder() {
+        function displayProducts(products, term) {
 
-            const term = input.value.trim();
+            const validProducts = products.filter(product => {
 
-            if (!term) {
+                return (
+
+                    Number.isFinite(Number(product.price)) &&
+                    Number(product.price) >= 0 &&
+                    typeof product.name === "string" &&
+                    typeof product.url === "string" &&
+                    /^https:\/\//i.test(product.url) &&
+                    Number.isFinite(Number(product.shipping || 0)) &&
+                    Number(product.shipping || 0) >= 0
+
+                );
+
+            });
+
+            if (!validProducts.length) {
 
                 results.innerHTML = `
-
-                    <div class="finder-empty">
-
-                        <div class="finder-icon">🔎</div>
-
-                        <h3>What are you looking for?</h3>
-
-                        <p>
-                            Search products, fashion,
-                            electronics, gifts or tickets.
-                        </p>
-
+                    <div class="finder-v3-panel">
+                        <h3>🔎 No verified prices found</h3>
+                        <p>Try another product search.</p>
                     </div>
-
                 `;
 
                 return;
@@ -887,35 +763,17 @@ console.log(
             }
 
 
-            saveSearch(term);
+            /* Cheapest total cost first */
+
+            validProducts.sort((a, b) => {
+
+                return calculateTotal(a) -
+                       calculateTotal(b);
+
+            });
 
 
-            /* Football recognition */
-
-            const category = recognizeCategory(term);
-
-            if (category.type === "tickets") {
-
-                showFootballResults(term);
-
-                results.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest"
-                });
-
-                return;
-
-            }
-
-
-            /* Marketplace matching */
-
-            const matchedMarkets = matchMarketplaces(category);
-
-            const safeTerm = escapeHTML(term);
-
-
-            /* Build comparison */
+            const cheapest = validProducts[0];
 
             results.innerHTML = `
 
@@ -924,26 +782,19 @@ console.log(
                     <div class="finder-v3-heading">
 
                         <span class="finder-v3-live">
-                            ● iLINK INTELLIGENCE V7
+                            ● iLINK FLIP V8
                         </span>
 
-                        <h3>
-                            ⚡ Smart Global Discovery
-                        </h3>
+                        <h3>🏆 Smart Price Hunter</h3>
 
                         <p>
-                            ${category.icon}
-                            ${category.description}
+                            Search:
+                            <strong>${escapeHTML(term)}</strong>
                         </p>
 
                         <p>
-                            Your search:
-                            <strong>${safeTerm}</strong>
-                        </p>
-
-                        <p>
-                            Comparing ${matchedMarkets.length}
-                            marketplaces.
+                            ${validProducts.length}
+                            product listings found.
                         </p>
 
                     </div>
@@ -951,56 +802,96 @@ console.log(
 
                     <div class="finder-v3-product-grid">
 
-                        ${matchedMarkets.map(function (market) {
+                        ${validProducts.map((product, index) => {
+
+                            const market = marketplaces.find(
+                                item => item.id === product.marketplace
+                            );
+
+                            const total = calculateTotal(product);
 
                             return `
 
                                 <div class="finder-v3-product-card">
 
-                                    <div class="finder-v3-flip-badge">
-                                        ⚡ FLIP OPTION
-                                    </div>
+                                    ${index === 0 ? `
+
+                                        <div class="finder-v3-flip-badge">
+                                            🥇 CHEAPEST OPTION
+                                        </div>
+
+                                    ` : ""}
+
+
+                                    ${product.image ? `
+
+                                        <img
+                                            src="${escapeHTML(product.image)}"
+                                            alt="${escapeHTML(product.name)}"
+                                            loading="lazy"
+                                            style="width:100%;max-height:180px;object-fit:contain;"
+                                        >
+
+                                    ` : ""}
+
 
                                     <h4>
-                                        ${market.icon}
-                                        ${market.name}
+                                        ${escapeHTML(product.name)}
                                     </h4>
 
                                     <p>
-                                        Discover your search
-                                        on ${market.name}.
+                                        ${market ? market.icon : "🌍"}
+                                        ${escapeHTML(
+                                            market ? market.name : product.marketplace
+                                        )}
                                     </p>
+
 
                                     <div class="finder-v3-comparison-info">
 
                                         <div>
                                             <span>💰</span>
                                             <strong>Price</strong>
-                                            <small>Check current price</small>
+                                            <small>
+                                                ${formatPrice(
+                                                    Number(product.price),
+                                                    product.currency
+                                                )}
+                                            </small>
                                         </div>
 
                                         <div>
                                             <span>🚚</span>
                                             <strong>Shipping</strong>
-                                            <small>Check delivery</small>
+                                            <small>
+                                                ${formatPrice(
+                                                    Number(product.shipping || 0),
+                                                    product.currency
+                                                )}
+                                            </small>
                                         </div>
 
                                         <div>
-                                            <span>📦</span>
-                                            <strong>Stock</strong>
-                                            <small>Check availability</small>
+                                            <span>🏆</span>
+                                            <strong>Total</strong>
+                                            <small>
+                                                ${formatPrice(
+                                                    total,
+                                                    product.currency
+                                                )}
+                                            </small>
                                         </div>
 
                                     </div>
 
+
                                     <a
                                         class="finder-v3-link"
-                                        href="${market.buildURL(term)}"
+                                        href="${escapeHTML(product.url)}"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        data-market="${market.id}"
                                     >
-                                        🔎 View ${market.name} →
+                                        View Product →
                                     </a>
 
                                 </div>
@@ -1014,43 +905,25 @@ console.log(
 
                     <div class="finder-v3-note">
 
-                        🧠 iLink Intelligence V7
+                        🏆 Cheapest listed option:
+
+                        <strong>
+                            ${escapeHTML(cheapest.name)}
+                        </strong>
 
                         <br><br>
 
-                        One search. Multiple marketplaces.
-                        Discover, compare and choose.
+                        Prices are sorted by product price
+                        plus shipping.
 
-                        <br><br>
-
-                        Remember to check actual prices,
-                        shipping costs and availability
-                        before purchasing.
+                        Check taxes, delivery charges and
+                        product availability before buying.
 
                     </div>
 
                 </div>
 
             `;
-
-
-            /* Record marketplace clicks */
-
-            results.querySelectorAll("[data-market]").forEach(
-                function (link) {
-
-                    link.addEventListener("click", function () {
-
-                        recordClick(
-                            link.dataset.market,
-                            term
-                        );
-
-                    });
-
-                }
-            );
-
 
             results.scrollIntoView({
 
@@ -1062,22 +935,168 @@ console.log(
         }
 
 
-        /* ==========================================
+        /* =====================================
+           MARKETPLACE SEARCH FALLBACK
+        ===================================== */
+
+        function showMarketplaceSearch(term) {
+
+            results.innerHTML = `
+
+                <div class="finder-v3-panel">
+
+                    <span class="finder-v3-live">
+                        ● iLINK FLIP V8
+                    </span>
+
+                    <h3>⚡ Smart Price Hunter</h3>
+
+                    <p>
+                        Live product price integration
+                        is not connected yet.
+                    </p>
+
+                    <p>
+                        You can still search these marketplaces:
+                    </p>
+
+                    <div class="finder-v3-product-grid">
+
+                        ${marketplaces.map(market => `
+
+                            <div class="finder-v3-product-card">
+
+                                <h4>
+                                    ${market.icon}
+                                    ${market.name}
+                                </h4>
+
+                                <a
+                                    class="finder-v3-link"
+                                    href="${market.url(term)}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Search ${market.name} →
+                                </a>
+
+                            </div>
+
+                        `).join("")}
+
+                    </div>
+
+                    <div class="finder-v3-note">
+
+                        🔌 Connect authorised marketplace
+                        product APIs or affiliate feeds to
+                        activate automatic price comparison.
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =====================================
+           SMART PRICE SEARCH
+        ===================================== */
+
+        async function searchProducts() {
+
+            const term = input.value.trim();
+
+            if (!term) {
+
+                results.innerHTML = `
+                    <div class="finder-empty">
+                        <h3>🔎 What are you looking for?</h3>
+                        <p>Enter a product to hunt for the best price.</p>
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            saveSearch(term);
+
+            results.innerHTML = `
+
+                <div class="finder-v3-panel">
+
+                    <h3>🔍 Hunting for the best price...</h3>
+
+                    <p>
+                        iLink Flip is checking product listings.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            try {
+
+                const response = await fetch(
+
+                    API_URL + "?q=" + encodeURIComponent(term),
+
+                    {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    }
+
+                );
+
+                if (!response.ok) {
+
+                    throw new Error("Price service unavailable.");
+
+                }
+
+                const data = await response.json();
+
+                if (!data || !Array.isArray(data.products)) {
+
+                    throw new Error("Invalid product data.");
+
+                }
+
+                displayProducts(data.products, term);
+
+            } catch (error) {
+
+                console.warn("Live price search unavailable:", error);
+
+                showMarketplaceSearch(term);
+
+            }
+
+        }
+
+
+        /* =====================================
            FIND IT BUTTON
-        ========================================== */
+        ===================================== */
 
         button.addEventListener("click", function (event) {
 
             event.preventDefault();
 
-            searchFinder();
+            searchProducts();
 
         });
 
 
-        /* ==========================================
+        /* =====================================
            ENTER KEY
-        ========================================== */
+        ===================================== */
 
         input.addEventListener("keydown", function (event) {
 
@@ -1085,82 +1104,65 @@ console.log(
 
                 event.preventDefault();
 
-                searchFinder();
+                searchProducts();
 
             }
 
         });
 
 
-        /* ==========================================
-           CATEGORY SUGGESTIONS
-        ========================================== */
+        /* =====================================
+           CATEGORY CHIPS
+        ===================================== */
 
-        document.querySelectorAll(".finder-chip").forEach(
-            function (chip) {
+        document.querySelectorAll(".finder-chip").forEach(chip => {
 
-                chip.addEventListener("click", function () {
+            chip.addEventListener("click", function () {
 
-                    input.value =
-                        chip.dataset.search ||
-                        chip.textContent.trim();
+                input.value =
+                    chip.dataset.search ||
+                    chip.textContent.trim();
 
-                    searchFinder();
+                searchProducts();
 
-                });
+            });
 
-            }
-        );
+        });
 
 
-        /* ==========================================
+        /* =====================================
            FASHION FINDER SUPPORT
-        ========================================== */
+        ===================================== */
 
         window.selectFashion = function (category) {
 
             input.value = category;
 
-            searchFinder();
-
-            results.scrollIntoView({
-
-                behavior: "smooth",
-                block: "nearest"
-
-            });
+            searchProducts();
 
         };
 
 
         console.log(
-            "🚀 iLink Intelligence V7 loaded successfully."
+            "🚀 iLink Flip V8 Smart Price Hunter loaded."
         );
 
     }
 
-
-    /* ==========================================
-       INITIALIZATION
-    ========================================== */
 
     if (document.readyState === "loading") {
 
         document.addEventListener(
             "DOMContentLoaded",
-            initIlinkV7,
+            initFlipV8,
             { once: true }
         );
 
     } else {
 
-        initIlinkV7();
+        initFlipV8();
 
     }
 
-})();
+})(); 
 
-
-        
-
-    
